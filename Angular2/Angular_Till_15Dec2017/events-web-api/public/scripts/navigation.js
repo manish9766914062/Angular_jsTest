@@ -1,0 +1,23 @@
+$(()=>{
+    $('#lnkHome').click(()=>{
+        $('#mainContentPlaceHolder').load('/home');
+    });
+    $('#lnkCategories').click(()=>{
+        $('#mainContentPlaceHolder').load('/categories');
+    });
+    $('#lnkProducts').click(()=>{
+        $('#mainContentPlaceHolder').load('/products');
+    });
+    $('#lnkEmployees').click(()=>{
+        $('#mainContentPlaceHolder').load('/employees');
+    });
+    $('#lnkCustomers').click(()=>{
+        $('#mainContentPlaceHolder').load('/customers');
+    });
+    $('#lnkSuppliers').click(()=>{
+        $('#mainContentPlaceHolder').load('/suppliers');
+    });
+    $('#lnkOrders').click(()=>{
+        $('#mainContentPlaceHolder').load('/orders');
+    });
+});

@@ -1,0 +1,49 @@
+<h1 [innerText]="pageTitle"></h1>
+<hr>
+<h5 [innerText]="subTitle"></h5>
+<br>
+<p [innerText]="childMessage"></p>
+<br>
+<table style="border: 1px solid black;" class="table table-hover table-stripped" *ngIf="employees.length > 0; else noDataTemplate"><!-- employeesList -->
+    <thead>
+        <tr>
+            <!-- <th>Employee Id</th> -->
+            <th>Employee Name</th>
+            <!-- <th>Address</th> -->
+            <th>City</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <!-- <th>Avtar</th> -->
+            <th>Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let employee of employees"><!-- employeesList -->
+            <!-- <td><span [innerText]="employee.employeeId"></span></td> -->
+            <td><span [innerText]="employee.employeeName"></span></td>
+            <!-- <td><span [innerText]="employee.address"></span></td> -->
+            <td><span [innerText]="employee.city"></span></td>
+            <td><span [innerText]="employee.phone"></span></td>
+            <td><span [innerText]="employee.email"></span></td>
+            <!-- <td>
+                <img [src]="employee.avtar" [alt]="employee.employeeName" [title]="employee.employeeName" style="height:30px;width:30px;">
+            </td> -->
+            <td>
+                <!-- <button class="btn btn-primary" (click)="getSelectedEmployee(employee)">See Details</button> -->
+                <!-- <button class="btn btn-primary" (click)="getSelectedEmployeeId(employee.employeeId)">See Details</button> -->
+                <button class="btn btn-primary" routerLink="{{(employee.employeeId)}}">See Details</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<ng-template #noDataTemplate>
+    <h4>There are no employees registered for this event.</h4>
+</ng-template>
+
+<!-- <div *ngIf="selectedEmployee">
+    <employee-details [employee]="selectedEmployee" (sendConfirmation)="getChildMessage($event)"></employee-details>
+</div> -->
+
+<!-- <div *ngIf="selectedEmployeeId">
+    <employee-details [employeeId]="selectedEmployeeId" (sendConfirmation)="getChildMessage($event)"></employee-details>
+</div> -->

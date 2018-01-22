@@ -1,0 +1,19 @@
+<h1>Welcome To Synechron Customers Page!</h1>
+<hr>
+
+
+<script>
+    $(() => {
+        $.ajax({
+            type: 'GET',
+            url: '/api/customers',
+            contentType: 'application/json',
+            dataType: 'json'
+        }).done((customers) => {
+            console.log(customers);
+        }).fail((err) => {
+            console.log(err);
+        });
+    });
+
+</script>

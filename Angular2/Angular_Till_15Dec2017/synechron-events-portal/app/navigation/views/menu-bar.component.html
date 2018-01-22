@@ -1,0 +1,36 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" routerLink="/home"><img [src]="menus[0]" [alt]="Synechron" style="height:40px;margin-top:-10px;"></a>
+      </div>
+  
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="active">
+              <!-- <a href="/home" [innerText]="menus[1]"></a> -->
+              <a routerLink="/home" [innerText]="menus[1]"></a>
+          </li>
+          <!-- <li><a href="/events" [innerText]="menus[2]"></a></li>
+          <li><a href="employees" [innerText]="menus[3]"></a></li>
+          <li><a href="/hr" [innerText]="menus[4]"></a></li>
+          <li><a href="/home" [innerText]="menus[5]"></a></li>
+          <li><a href="/home" [innerText]="menus[6]"></a></li> -->
+          <li><a routerLink="/events" [innerText]="menus[2]"></a></li>
+          <li><a routerLink="employees" [innerText]="menus[3]"></a></li>
+          <li><a routerLink="/hr" [innerText]="menus[4]"></a></li>
+          <li><a routerLink="/home" [innerText]="menus[5]"></a></li>
+          <li><a routerLink="/home" [innerText]="menus[6]"></a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a routerLink="/home" [innerText]="menus[5]"></a></li>
+            <li><a routerLink="/home" [innerText]="menus[6]"></a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>

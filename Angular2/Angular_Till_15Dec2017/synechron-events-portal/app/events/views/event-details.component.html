@@ -1,0 +1,55 @@
+<div *ngIf="receivedEvent">
+<h1 [innerText]="pageTitle+receivedEvent.eventName"></h1>
+<!-- <hr> -->
+<!-- table.table.table-hover.table-stripped>tr*7>th+td>span[innerText] then type Tab button -->
+<table class="table table-hover table-stripped">
+    <tr>
+        <th>Event Id</th>
+        <td><span [innerText]="receivedEvent.eventId"></span></td>
+    </tr>
+    <tr>
+        <th>Event Code</th>
+        <td><span [innerText]="receivedEvent.eventCode | lowercase"></span></td>
+    </tr>
+    <tr>
+        <th>Event Name</th>
+        <td><span [innerText]="receivedEvent.eventName | uppercase"></span></td>
+    </tr>
+    <tr>
+        <th>Description</th>
+        <td><span [innerText]="receivedEvent.description | firstLetterCapital"></span></td>
+    </tr>
+    <tr>
+        <th>Start Date</th>
+        <td><span [innerText]="receivedEvent.startDate | date:'mediumDate'"></span></td>
+    </tr>
+    <tr>
+        <th>End Date</th>
+        <td><span [innerText]="receivedEvent.endDate | date:'mediumDate'"></span></td>
+    </tr>
+    <tr>
+        <th>Fees</th>
+        <td><span [innerText]="receivedEvent.fees | currency:'INR'"></span></td>
+    </tr>
+    <tr>
+        <th>Attendance</th>
+        <td>
+            <!-- <span [innerText]="receivedEvent.attendance"></span> -->
+            <div class="progress progress-striped active">
+                <div class="progress-bar" [style.width]="receivedEvent.attendance + '%'"
+                    [title]="receivedEvent.attendance + '%'">
+                    {{receivedEvent.attendance + '%'}}
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <th>Logo</th>
+        <td><img [src]="receivedEvent.logo" [alt]="receivedEvent.eventName" [title]="receivedEvent.eventName" style="height:60px;width:60px;"></td>
+    </tr>
+</table>
+<!-- <hr>
+<button class="btn btn-success" (click)="raiseEvent()">Send Confirmation!</button> -->
+<!-- <button class="btn btn-success" routerLink="/events">Back</button> -->
+<button class="btn btn-success" (click)="GoBack()">Back</button>
+</div>

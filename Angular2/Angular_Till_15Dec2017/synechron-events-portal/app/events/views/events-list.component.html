@@ -1,0 +1,45 @@
+<h1 [innerText]="pageTitle"></h1>
+<hr>
+<h5 [innerText]="subTitle"></h5>
+Search Events By Name <input type="text" class="form-control" [(ngModel)]="searchChar">
+<br>
+Search Events By Start Date <input type="date" class="form-control" [(ngModel)]="searchDate">
+<!-- <p [innerText]="childMessage"></p>
+<br> -->
+<table style="border: 1px solid black;" class="table table-hover table-stripped" *ngIf="events.length > 0; else noDataTemplate">
+    <thead>
+        <tr>
+            <th>Event Code</th>
+            <th>Event Name</th>
+            <th>Start Date</th>
+            <th>Fees</th>
+            <th>Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let event of events | eventNameContainsFilter:searchChar | eventStartDateFilter:searchDate">
+            <td><span [innerText]="event.eventCode | lowercase"></span></td><!-- | <name> is inbuilt angular pipe -->
+            <td><span [innerText]="event.eventName | uppercase"></span></td>
+            <td><span [innerText]="event.startDate | date:'mediumDate'"></span></td><!-- shortDate/mediumDate/longDate/shortTime/mediumTime/longTime -->
+            <td><span [innerText]="event.fees | currency: 'INR'"></span></td>
+            <td>
+                <!-- <button class="btn btn-primary" (click)="getSelectedEvent(event)">See Details</button> -->
+                <!-- commented to do it by routing -->
+                <!-- <button class="btn btn-primary" (click)="getSelectedEvent(event.eventId)">See Details</button> -->
+                <button class="btn btn-primary" routerLink="/events/{{(event.eventId)}}">See Details</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<ng-template #noDataTemplate>
+    <h4>There are no events.</h4>
+</ng-template>
+
+<!-- <div *ngIf="selectedEvent">
+    <event-details [event]="selectedEvent"></event-details>
+</div> -->
+
+<!-- commented to do it by routing -->
+<!-- <div *ngIf="selectedEventId">
+    <event-details [eventId]="selectedEventId"></event-details>
+</div> -->

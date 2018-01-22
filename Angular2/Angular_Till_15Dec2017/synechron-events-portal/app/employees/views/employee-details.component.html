@@ -1,0 +1,39 @@
+<div *ngIf="receivedEmployee">
+<h1 [innerText]="pageTitle+receivedEmployee.employeeName"></h1>
+<!-- <hr> -->
+<!-- table.table.table-hover.table-stripped>tr*7>th+td>span[innerText] then type Tab button -->
+<table class="table table-hover table-stripped">
+    <tr>
+        <th>Employee Id</th>
+        <td><span [innerText]="receivedEmployee.employeeId"></span></td>
+    </tr>
+    <tr>
+        <th>Employee Name</th>
+        <td><span [innerText]="receivedEmployee.employeeName"></span></td>
+    </tr>
+    <tr>
+        <th>Address</th>
+        <td><span [innerText]="receivedEmployee.address"></span></td>
+    </tr>
+    <tr>
+        <th>City</th>
+        <td><span [innerText]="receivedEmployee.city"></span></td>
+    </tr>
+    <tr>
+        <th>Phone</th>
+        <td><span [innerText]="receivedEmployee.phone"></span></td>
+    </tr>
+    <tr>
+        <th>Email</th>
+        <td><span [innerText]="receivedEmployee.email"></span></td>
+    </tr>
+    <tr>
+        <th>Avtar</th>
+        <td><img [src]="receivedEmployee.avtar" [alt]="receivedEmployee.employeeName" [title]="receivedEmployee.employeeName" style="height:30px;width:30px;"></td>
+    </tr>
+</table>
+<hr>
+<button class="btn btn-success" (click)="raiseEvent()">Send Confirmation!</button>
+<!-- <button class="btn btn-success" routerLink="/employees">Back</button> -->
+<button class="btn btn-success" (click)="GoBack()">Back</button>
+</div>
