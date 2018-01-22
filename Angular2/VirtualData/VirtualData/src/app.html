@@ -1,0 +1,56 @@
+﻿<div class="container">
+
+    <h1>ODataCollectionView and ODataVirtualCollectionView</h1>
+    <p>
+        The <b>ODataCollectionView</b> class provides a simple way to connect controls
+        to OData sources. When you create an <b>ODataCollectionView</b>, it starts loading
+        all the data in the source, given the filtering and paging constraints.
+    </p>
+    <p>
+        The <b>wijmo.odata.ODataVirtualCollectionView</b> extends <b>ODataCollectionView</b> to
+        provide on-demand loading of data. The <b>wijmo.odata.ODataVirtualCollectionView</b>
+        does not automatically load the data from the server. Instead, it relies on the
+        <b>setWindow</b> method to load data fragments (windows) on demand.
+    </p>
+    <p>
+        The grids below show how both classes work. Notice how the grid on the left shows
+        the data being loaded gradually. The grid on the right shows the full record count
+        immediately, but the data will not be loaded until you scroll down.
+    </p>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>
+                ODataCollectionView
+            </h3>
+            <wj-flex-grid #flexCV
+                          [isReadOnly]="true"
+                          (initialized)="initODataCollectionView(flexCV)">
+                <wj-flex-grid-column binding="OrderID" header="Order"></wj-flex-grid-column>
+                <wj-flex-grid-column binding="ProductID" header="Product"></wj-flex-grid-column>
+                <wj-flex-grid-column binding="ProductName" header="Name"></wj-flex-grid-column>
+                <wj-flex-grid-column binding="UnitPrice" header="Unit Price" format="n2"></wj-flex-grid-column>
+                <wj-flex-grid-column binding="Quantity" header="Quantity"></wj-flex-grid-column>
+                <wj-flex-grid-column binding="Discount" header="Discount" format="p0"></wj-flex-grid-column>
+                <wj-flex-grid-column binding="ExtendedPrice" header="Price" format="n2"></wj-flex-grid-column>
+            </wj-flex-grid>
+            <b>ODataCollectionView</b>: {{flexCV?.itemsSource?.items.length | number}} items
+        </div>
+        <div class="col-md-6">
+            <h3>
+                ODataVirtualCollectionView
+            </h3>
+            <wj-flex-grid #flexVCV
+                          [isReadOnly]="true"
+                          (initialized)="initODataVirtualCollectionView(flexVCV)">
+                <wj-flex-grid-column binding="OrderID" header="Order"></wj-flex-grid-column>
+                <wj-flex-grid-column binding="ProductID" header="Product"></wj-flex-grid-column>
+                <wj-flex-grid-column binding="ProductName" header="Name"></wj-flex-grid-column>
+                <wj-flex-grid-column binding="UnitPrice" header="Unit Price" format="n2"></wj-flex-grid-column>
+                <wj-flex-grid-column binding="Quantity" header="Quantity"></wj-flex-grid-column>
+                <wj-flex-grid-column binding="Discount" header="Discount" format="p0"></wj-flex-grid-column>
+                <wj-flex-grid-column binding="ExtendedPrice" header="Price" format="n2"></wj-flex-grid-column>
+            </wj-flex-grid>
+            <b>ODataVirtualCollectionView</b>: {{flexVCV?.itemsSource?.items.length | number}} items
+        </div>
+    </div>
+</div>

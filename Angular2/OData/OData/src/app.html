@@ -1,0 +1,28 @@
+﻿<div class="header">
+    <div class="container" style="position:relative">
+        <h1>
+            <img src="../resources/oData.png" />
+            Wijmo and OData
+        </h1>
+        <p>
+            <a href="http://www.odata.org/">OData</a> is a data access protocol for creating and consuming data APIs.
+        </p>
+    </div>
+</div>
+
+<!-- Navigation menu -->
+<div class="container">
+
+    <!-- use tabs to select the view -->
+    <ul class="nav nav-tabs">
+        <li routerLinkActive="active"><a [routerLink]="'home'">Home</a></li>
+        <li routerLinkActive="active"><a [routerLink]="'products'">Products</a></li>
+        <li routerLinkActive="active"><a [routerLink]="'customers'">Customers</a></li>
+        <li routerLinkActive="active"><a [routerLink]="'employees'">Employees</a></li>
+    </ul>
+
+    <!-- view -->
+    <div class="container">
+        <router-outlet></router-outlet>
+    </div>
+</div>

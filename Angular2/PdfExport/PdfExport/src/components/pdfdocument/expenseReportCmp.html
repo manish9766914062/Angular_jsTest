@@ -1,0 +1,30 @@
+﻿<div>
+    <div class="copy">
+		<h3>Expense report</h3>
+		<p>
+			This sample shows how to create an expense report and save it to a PDF file using
+			<b>PdfDocument</b> API.
+		</p>
+		<div class="collapsed-content collapse">
+			<p>
+				The sample uses <b>drawText</b> and vector graphics methods to draw captions, expected
+				 handwritten entries and table cells.
+			</p>
+			<p>
+				The <b>scale</b> method is used to scale the table so that it fits the page width.
+			</p>
+		</div>
+		<p>
+			<button type="button" data-toggle="collapse"
+				data-target=".collapsed-content, .btn.btn-default.btn-xs.collapse"
+				class="btn btn-default btn-xs collapse in">
+				Read more
+			</button>
+		</p>
+	</div>
+
+	<!-- Export button -->
+	<div class="row">
+		<button class="btn btn-default" id="Button1" (click)="export()">Export</button>
+	</div>
+</div>

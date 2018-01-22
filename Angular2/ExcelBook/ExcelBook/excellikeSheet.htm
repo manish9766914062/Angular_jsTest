@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>ExcelBook (Angular 2) | Wijmo</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Supporting libraries -->
+    <!-- Polyfill(s) for older browsers -->
+    <script src="node_modules/core-js/client/shim.min.js"></script>
+
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/reflect-metadata/Reflect.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+
+
+    <!-- Configure SystemJS -->
+    <script src="systemjs.config.js"></script>
+
+    <!-- JQuery/Bootstrap -->
+    <script src="http://code.jquery.com/jquery-2.2.4.min.js" type="text/javascript"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+
+    <!-- JSZip library -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+
+    <!-- Wijmo -->
+    <link href="styles/vendor/wijmo.min.css" rel="stylesheet" />
+    <link href="styles/vendor/wijmo.theme.office.min.css" rel="stylesheet" />
+
+    <!-- Configure and load application -->
+    <link href="src/styles/app.css" rel="stylesheet" />
+    <link href="src/styles/ribbon.css" rel="stylesheet" />
+    <link href="src/styles/cellStyles.css" rel="stylesheet" />
+
+    <!-- Load the root application module -->
+    <script>
+        System.import('./src/excellikeSheetCmp');
+    </script>
+
+
+</head>
+<body>
+    <!-- Add root application component -->
+    <excellike-sheet-cmp></excellike-sheet-cmp>
+
+
+    <!-- Google analytics -->
+    
+    <script src="http://cdn.wijmo.com/wijmo.sample.toolbar.js" type="text/javascript"></script>
+</body>
+</html>

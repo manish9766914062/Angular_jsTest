@@ -1,0 +1,95 @@
+﻿/* customize Bootstrap header classes */
+body {
+	font-family: -apple-system-font, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: -apple-system-font, 'Segoe UI Light', 'Segoe UI', 'Roboto', sans-serif;
+	font-weight: 300;
+}
+esri-map {
+display:block;
+position:relative;
+}
+
+.wj-flexchart {
+    display:block;
+}
+.header {
+	background-color: #00C1D5;
+	
+	background-position: 0% 0%;
+	background-repeat: repeat-x;
+	margin-bottom: 14px;
+	padding: 12px 0px;
+	color: #dcf3f6;
+}
+
+	.header h1 {
+		font-size: 40px;
+		line-height: 1;
+		margin-top: 0;
+		color: #fff;
+	}
+
+	.header a {
+		font-weight: bold;
+		color: #dcf3f6;
+	}
+
+/* information tiles */
+ .tile
+{
+    color: black;
+    background: #fafafa;
+    margin: 4px;
+    padding: 6px;
+    border: 1px solid #f0f0f0;
+    border-top-width: 3px;
+}
+/* bound content in tiles */
+.tile b 
+{
+    color: #8f5ca6;
+}
+/* effect when mouse hovers over tiles*/ 
+.tile:hover
+{
+    border-top-color: #8f5ca6;
+    cursor: pointer;
+}
+/* background images */
+.symbol
+{
+    width:80px;
+    height:80px;
+    text-align:center;
+    background-repeat:no-repeat;
+}
+
+.barChart
+{
+	height: 180px;
+	width: 280px;
+	padding: 5px;
+}
+
+.homeValueChart
+{
+	width: 380px;
+}
+
+.homeValueDistributionChart
+{
+	height: 325px;
+	width: 360px;
+}
+
+.radialgauge
+{
+	height: 150px;
+	width: 230px;
+	padding: 3px;
+	margin-bottom: 12px;
+	font-size: smaller;
+}

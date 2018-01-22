@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OData", "OData\OData.csproj", "{E6260477-4D18-45D6-BB72-8A4E7D8EDE65}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Evaluation|Any CPU = Evaluation|Any CPU
+		Minified|Any CPU = Minified|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Standard|Any CPU = Standard|Any CPU
+		StandardEvaluation|Any CPU = StandardEvaluation|Any CPU
+		StandardMinified|Any CPU = StandardMinified|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E6260477-4D18-45D6-BB72-8A4E7D8EDE65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6260477-4D18-45D6-BB72-8A4E7D8EDE65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6260477-4D18-45D6-BB72-8A4E7D8EDE65}.Evaluation|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6260477-4D18-45D6-BB72-8A4E7D8EDE65}.Evaluation|Any CPU.Build.0 = Debug|Any CPU
+		{E6260477-4D18-45D6-BB72-8A4E7D8EDE65}.Minified|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6260477-4D18-45D6-BB72-8A4E7D8EDE65}.Minified|Any CPU.Build.0 = Debug|Any CPU
+		{E6260477-4D18-45D6-BB72-8A4E7D8EDE65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6260477-4D18-45D6-BB72-8A4E7D8EDE65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6260477-4D18-45D6-BB72-8A4E7D8EDE65}.Standard|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6260477-4D18-45D6-BB72-8A4E7D8EDE65}.Standard|Any CPU.Build.0 = Debug|Any CPU
+		{E6260477-4D18-45D6-BB72-8A4E7D8EDE65}.StandardEvaluation|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6260477-4D18-45D6-BB72-8A4E7D8EDE65}.StandardEvaluation|Any CPU.Build.0 = Debug|Any CPU
+		{E6260477-4D18-45D6-BB72-8A4E7D8EDE65}.StandardMinified|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6260477-4D18-45D6-BB72-8A4E7D8EDE65}.StandardMinified|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

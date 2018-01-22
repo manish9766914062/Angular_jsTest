@@ -1,0 +1,115 @@
+﻿<div>
+    <div class="copy">
+		<h3>Customize cell rendering</h3>
+		<p>
+			This sample shows how to use the <b>formatItem</b> callback function to сustomize the
+			appearance of cells.
+		</p>
+		<div class="collapsed-content collapse">
+			<p>
+				Export settings can contain user-defined callback function <b>formatItem</b>, which is
+				called for every exported cell just before rendering on the document canvas:
+			</p>
+			<pre>
+wijmo.grid.pdf.FlexGridPdfConverter.export(flexGrid, "FlexGrid.pdf", &#123;
+    formatItem: function (args) &#123;
+        // ...
+    }
+});</pre>
+			<p>
+				Using this function the user can alter the appearance (such as background color, fore
+				color, font) and content of the cell.
+			</p>
+			<p>
+				Function takes an argument of <b>PdfFormatItemEventArgs</b> type, which is derived from
+				<b>wijmo.grid.CellRangeEventArgs</b> class and has following members (look into
+				documentation for the full list):
+			</p>
+			<ul>
+				<li>
+					<b>panel</b>: Gets the GridPanel related to the cell being rendered.
+				</li>
+				<li>
+					<b>row</b>: Gets the row index of the cell within the panel.rows collection.
+				</li>
+				<li>
+					<b>col</b>: Gets the column index of the cell within the panel.columns collection.
+				</li>
+				<li>
+					<b>data</b>: Gets or sets the data of the cell.
+				</li>
+				<li>
+					<b>style</b>: Gets or sets the style of the cell.
+				</li>
+				<li>
+					<b>cell</b>: If IFlexGridDrawSettings.<b>customCellContent</b> is set to true then
+					contains reference to the DOM element that represents the grid cell being rendered;
+					otherwise, a null value.
+				</li>
+				<li>
+					<b>getFormattedCell</b>: Function that returns a reference to the DOM element that
+					represents the grid cell being rendered.
+				</li>
+			</ul>
+
+			<p>
+				The <b>getFormattedCell</b> function is useful if IFlexGridDrawSettings.<b>customCellContent</b>
+				is set to false (so the <b>cell</b> property will be null), but the user needs to retrive
+				the DOM element that represents the grid cell being rendered.
+			</p>
+
+			<p>
+				Initially, the args.<b>data</b> and args.<b>style</b> properties contain different values,
+				depending on IFlexGridDrawSettings.<b>customCellContent</b> property value:
+			</p>
+			<ul>
+				<li>
+					customCellContent = false (default): args.<b>data</b> stores the value retrieved with
+					<b>FlexGrid.getCellData</b> method. args.<b>style</b> contains combination of
+					IFlexGridDrawSettings.styles export	setting, according to the row type of exported cell.
+				</li>
+				<li>
+					customCellContent = true: args.<b>data</b> contains the textContent value, retrieved
+					from the DOM element that represents the grid cell being rendered. args.<b>style</b>
+					is obtained from the same element with window.getComputedStyle.
+				</li>
+			</ul>
+
+			<p>
+				User can change args.<b>data</b> and args.<b>style</b>, these changes will be reflected
+				upon cell rendering.
+			</p>
+			<p>
+				In this sample the current row number is added to the row header cell via changing the
+				args.<b>data</b> property. The background of a cell of the "Color" column is changed
+				according to its value via changing the args.<b>style.backgroundColor</b>.
+			<p>
+		</div>
+		<p>
+			<button type="button" data-toggle="collapse"
+				data-target=".collapsed-content, .btn.btn-default.btn-xs.collapse"
+				class="btn btn-default btn-xs collapse in">
+				Read more
+			</button>
+		</p>
+	</div>
+
+	<!-- Export button -->
+	<div class="row">
+		<button class="btn btn-default" id="Button1" (click)="export()">Export</button>
+	</div>
+
+	<!-- FlexGrid -->
+	<div class="row">
+		<wj-flex-grid class="grid"
+				#flexGrid
+				headersVisibility="All"
+				selectionMode="ListBox"
+				[itemsSource]="data">
+			<wj-flex-grid-column header="ID" binding="id"></wj-flex-grid-column>
+			<wj-flex-grid-column header="Country" binding="country"></wj-flex-grid-column>
+			<wj-flex-grid-column header="Product" binding="product"></wj-flex-grid-column>
+			<wj-flex-grid-column header="Color" binding="color" isReadOnly="true"></wj-flex-grid-column>
+		</wj-flex-grid>
+	</div>
+</div>

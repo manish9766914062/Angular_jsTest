@@ -1,0 +1,66 @@
+﻿    <!-- header -->
+<div class="header">
+    <div class="container">
+        <img src="https://grapecitycontentcdn.azureedge.net/gcbrand/samples/wijmo/wijmo-logo.png" alt="Wijmo 5" />
+        <h1>
+            Input Labels
+        </h1>
+        <p>
+            Create input fields with labels and validation messages.
+        </p>
+    </div>
+</div>
+
+<!-- content -->
+<div class="container">
+    <h3>
+        Labeled Input Class
+    </h3>
+    <p>
+        Use the <b>wj-labeled-input</b> class and some CSS to create
+        input fields with floating labels and validation messages.
+    </p>
+    <p>
+        The labeled inputs are similar to text fields with floating
+        labels implemented in
+        <a href="https://getmdl.io/components/index.html#textfields-section">Material Design Lite</a>
+        and to the "paper-input" element implemented in
+        <a href="https://elements.polymer-project.org/elements/paper-input?view=demo:demo/index.html&active=paper-input">Polymer</a>.
+    </p>
+    <p>
+        The CSS rules used in this sample take advantage of Wijmo's pseudo class extensions
+        which include <b>wj-state-focused</b>, <b>wj-state-empty</b>, and <b>wj-state-invalid</b>.
+    </p>
+
+    <form-cmp [item]="mainItem"
+              [staticLabels]="staticLabels"
+              (customSubmit)="submitForm($event)">
+    </form-cmp>
+
+    <h3>
+        Static Labels
+    </h3>
+    <p>
+        If you don't like the animated labels, make them static by adding the <b>wj-static-labels</b>
+        class to the element that contains the input controls. For example:
+    </p>
+    <label>
+        Make labels static: <input type="checkbox" [(ngModel)]="staticLabels" />
+    </label>
+
+    <h3>
+        Modal Dialogs
+    </h3>
+    <p>
+        You can use the input labels in modal dialogs as well, by placing the form element in
+        a <b>Popup</b> control. For example:
+    </p>
+
+    <button class="btn btn-primary" (click)="editItem()">Edit Item...</button>
+    <wj-popup #modalDialog>
+        <form-cmp [item]="dlgItem"
+                  [staticLabels]="staticLabels"
+                  (customSubmit)="submitForm($event)">
+        </form-cmp>
+    </wj-popup>
+</div>

@@ -1,0 +1,60 @@
+﻿
+<div *ngIf="product">
+    <h4><b>{{product.name}}</b></h4>
+
+    <div class="row">
+
+        <!-- summary info -->
+        <div class="well col-md-3">
+            <p><b>Rank: #{{product.rank}}</b></p>
+            <p><b>Total:</b> {{product.sales.total | number:'1.0-2'}} units</p>
+            <p><b>Average:</b> {{product.sales.avg | number:'1.0-2'}} units/qtr</p>
+            <p><b>Current:</b> {{product.sales.qThis | number:'1.0-2'}} units</p>
+            <p>
+                <b>Trend:</b> {{product.salesTrend.b | number:'1.2-2'}} units/qtr
+                (r<sup>2</sup>: {{product.salesTrend.r2 | number:'1.2-2'}})
+            </p>
+            <div class="pagination-centered">
+                <wj-radial-gauge style="height:150px;padding:4px"
+                                 [value]="product.sales.qThis"
+                                 [min]="product.sales.min"
+                                 [max]="product.sales.max">
+                </wj-radial-gauge>
+            </div>
+        </div>
+
+        <!-- the chart -->
+        <div class="col-md-9">
+
+            <wj-flex-chart height="500"
+                           [chartType]="'Line'"
+                           [itemsSource]="product.chartData"
+                           [bindingX]="'quarter'">
+                <wj-flex-chart-series [name]="'Sales'"
+                                      [binding]="'sales'"
+                                      [style]="{ 'stroke':'#1f6f03', 'stroke-width': '3'}">
+                </wj-flex-chart-series>
+                <wj-flex-chart-series [name]="Regression"
+                                      [binding]="'reg'"
+                                      [chartType]="'Line'"
+                                      [style]="{ 'stroke':'black', 'stroke-width': '.5'}">
+                </wj-flex-chart-series>
+                <wj-flex-chart-axis [wjProperty]="axisX"
+                                    [labelAngle]="30"
+                                    [majorUnit]="4">
+                </wj-flex-chart-axis>
+                <wj-flex-chart-axis [wjProperty]="'axisY'"
+                                    [min]="0">
+                </wj-flex-chart-axis>
+            </wj-flex-chart>
+        </div>
+    </div>
+
+    <div class="row">
+        <p class="text-right" [ngStyle]="{display:loading ? 'none' : ''}">
+            <a href="#/bullets">
+                see bullets
+            </a>
+        </p>
+    </div>
+</div>

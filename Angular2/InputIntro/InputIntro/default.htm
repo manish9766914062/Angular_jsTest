@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Input Introduction (Angular 2) | Wijmo</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Supporting libraries -->
+    <!-- IE required polyfills, in this exact order -->
+    <!--<script src="node_modules/es6-shim/es6-shim.min.js"></script>
+    <script src="node_modules/systemjs/dist/system-polyfills.js"></script>
+    <script src="node_modules/angular2/es6/dev/src/testing/shims_for_IE.js"></script>
+
+    <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <script src="node_modules/rxjs/bundles/Rx.js"></script>-->
+
+    <!-- Polyfill(s) for older browsers -->
+    <script src="node_modules/core-js/client/shim.min.js"></script>
+
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/reflect-metadata/Reflect.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+
+
+    <!-- Run-time settings -->
+    <!-- Use run-time TypeScript compiler. Uncomment script tags below and comment out tags under the "Use JacaScript code" comment. -->
+    <!--<script src="https://code.angularjs.org/tools/typescript.js"></script>
+    <script>
+        System.config({
+            packages: {
+                'src': {
+                    defaultExtension: 'ts',
+                },
+            },
+            transpiler: 'typescript',
+            typescriptOptions: { emitDecoratorMetadata: true },
+        });
+    </script>-->
+    <!-- Use JacaScript code. Uncomment script tags below and comment out tags under the "Use run-time TypeScript compiler" comment. -->
+    <!--<script>
+        System.config({
+            packages: {
+                'src': {
+                    defaultExtension: 'js',
+                },
+            },
+        });
+    </script>-->
+    <!-- 2. Configure SystemJS -->
+    <script src="systemjs.config.js"></script>
+
+    <!-- Angular 2 -->
+    <!--<script src="node_modules/angular2/bundles/angular2.dev.js"></script>-->
+
+    <!-- JQuery/Bootstrap -->
+    <script src="http://code.jquery.com/jquery-2.2.4.min.js" type="text/javascript"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
+
+    <!-- Wijmo -->
+    <link href="styles/vendor/wijmo.min.css" rel="stylesheet" />
+
+    <!-- Configure and load application -->
+    <link href="src/styles/app.css" rel="stylesheet" />
+
+    <!-- custom Wijmo themes -->
+    <link id="activeThemeLink" href="" rel="stylesheet" />
+
+    <!-- Load the root application module -->
+    <script>
+        System.import('./src/app');
+    </script>
+
+
+</head>
+<body>
+    <!-- Add root application component -->
+    <app-cmp></app-cmp>
+
+
+    <!-- Google analytics -->
+    
+    <script src="http://cdn.wijmo.com/wijmo.sample.toolbar.js" type="text/javascript"></script>
+</body>
+</html>

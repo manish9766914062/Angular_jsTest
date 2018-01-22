@@ -1,0 +1,73 @@
+﻿<div class="container">
+
+    <h1>
+        Grid Validation
+    </h1>
+    <p>
+        This sample shows how you can add validation to a <b>FlexGrid</b>,
+        so that it displays errors in rows and cells. This will prevent users
+        from leaving edit mode until they provide valid values for the
+        cells.
+    </p>
+    <p>
+        The validation logic is implemented by setting the <b>getError</b>
+        property of the <b>CollectionView</b>, being used as a data source,
+        to a callback method. This method takes an item and a property name as
+        parameters, and returns an error message if the current property
+        value is invalid.
+    </p>
+
+    <wj-flex-grid  #flex
+                  [itemsSource]="data"
+                  [showAlternatingRows]="false"
+                  [allowAddNew]="true"
+                  [showErrors]="showErrors"
+                  [validateEdits]="validateEdits"
+                  (initialized)="enableCustomValidation(flex)">
+        <wj-flex-grid-column [binding]="'customer.firstName'" header="First"></wj-flex-grid-column>
+        <wj-flex-grid-column [binding]="'customer.lastName'" header="Last"></wj-flex-grid-column>
+        <wj-flex-grid-column [binding]="'country'" header="Country"></wj-flex-grid-column>
+        <wj-flex-grid-column [binding]="'downloads'" header="Downloads" format="n0"></wj-flex-grid-column>
+        <wj-flex-grid-column [binding]="'sales'" header="Sales" format="n2"></wj-flex-grid-column>
+        <wj-flex-grid-column [binding]="'expenses'" header="Expenses" format="n2"></wj-flex-grid-column>
+        <wj-flex-grid-column [binding]="'active'" header="Active"></wj-flex-grid-column>
+    </wj-flex-grid>
+
+    <h3>
+        Grid Validation Properties
+    </h3>
+    <p>
+        The <b>showErrors</b> property determines whether the grid should add the
+        <b>wj-state-invalid</b> class to cells that contain errors:
+    </p>
+    <label>
+        Show Errors
+        <input type="checkbox" [(ngModel)]="showErrors" />
+    </label>
+    <p>
+        The <b>validateEdits</b> property determines whether the grid should keep
+        cells in edit mode while there are validation errors:
+    </p>
+    <label>
+        Validate Edits
+        <input type="checkbox" [(ngModel)]="validateEdits" />
+    </label>
+
+    <h3>
+        Additional Custom Validation
+    </h3>
+    <p>
+        In addition to the built-in validation, you can implement your own custom
+        behaviors using code.
+    </p>
+    <p>
+        For example, if you check the box below the grid will handle the <b>cellEditEnded</b>
+        event to check whether there are any validation errors in the row that was just edited.
+        If any errors are detected, the grid will select the invalid cell and get back
+        into edit mode:
+    </p>
+    <label>
+        Custom Validation
+        <input type="checkbox" [(ngModel)]="customValidation" />
+    </label>
+</div>

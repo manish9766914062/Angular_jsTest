@@ -1,0 +1,215 @@
+﻿<div class="header">
+    <div class="container">
+        <img src="https://grapecitycontentcdn.azureedge.net/gcbrand/samples/wijmo/wijmo-logo.png" alt="Wijmo 5" />
+        <h1>
+            Wijmo 5 Popups
+        </h1>
+        <p>
+            Show dialogs, forms, or arbitrary elements as popups associated with a parent element.
+        </p>
+    </div>
+</div>
+
+<div class="container">
+
+    <p>
+        Wijmo 5 introduces a <b>Popup</b> control that can be used to display arbitrary
+        content as dialogs (centered on the screen, without an owner element), or as
+        popups (located relative to an owner element).
+    </p>
+
+    <h3>
+        Dialogs (Popups with no owner)
+    </h3>
+    <p>
+        Dialogs are <b>Popups</b> with no owner element. They must be shown by calling the
+        <b>show</b> method.
+    </p>
+    <p>
+        Dialogs can be modal or modeless. Modal dialogs have a dark backdrop, and
+        if their <b>hideTrigger</b> property is set to <b>None</b>, they cannot
+        lose focus and must be dismissed by the user, either by pressing escape
+        or by clicking an element on the dialog itself.
+    </p>
+    <p>
+        Notice the following features provided by the <b>Popup</b> control:
+    </p>
+    <ul>
+        <li>
+            <b>Element positioning</b>: The popups are centered on the screen or positioned
+            above or below the owner element, with edge-detection.
+        </li>
+        <li>
+            <b>Focus handling</b>: Input elements get the focus when the dialog is
+            displayed, with support for the 'autofocus' attribute. Modal popups
+            keep the focus within the control when the user presses the Tab key.
+        </li>
+        <li>
+            <b>Keyboard handling</b>: Popups are hidden when the user presses the Escape
+            key, or when they press the Enter key and the popup contains no elements
+            in an invalid state.
+        </li>
+    </ul>
+
+    <!-- define dialogs and buttons to show each one -->
+    <wj-popup class="modal-content" #frmLogIn>
+        <frm-log-in-cmp (submit)="frmLogIn.hide()" (createAccount)="frmCreateAccount.show(true)"></frm-log-in-cmp>
+    </wj-popup>
+    <button class="btn btn-primary" (click)="frmLogIn.show(true)">
+        log in...
+    </button>
+    <wj-popup class="modal-content" #frmCreateAccount>
+        <frm-create-account-cmp (submit)="submitAccountForm($event,frmCreateAccount)"></frm-create-account-cmp>
+    </wj-popup>
+    <button class="btn btn-primary" (click)="frmCreateAccount.show(true)">
+        create account...
+    </button>
+
+    <wj-popup class="modal-content" #frmEditAccount>
+        <frm-edit-account-cmp (submit)="submitAccountForm($event,frmEditAccount)"></frm-edit-account-cmp>
+    </wj-popup>
+    <button class="btn btn-primary" (click)="frmEditAccount.show(true)">
+        edit account...
+    </button>
+
+    <h3>
+        Custom CSS transitions
+    </h3>
+    <p>
+        The <b>Popup</b> class has two properties called <b>fadeIn</b> and <b>fadeOut</b>
+        that add simple animations when the <b>Popup</b> is shown or hidden.
+        Both are set to true by default.
+    </p>
+    <p>
+        You can create your own custom CSS-based animations by adding and removing classes
+        to the <b>Popup</b>'s host element in response to the <b>showing</b> and <b>hiding</b>
+        events, and defining CSS rules that apply animations based on those classes.
+    </p>
+    <p>
+        For example, these rules specify a hidden state for elements with the <b>custom-animation</b>
+        class, and a visible state for elements with the <b>custom-animation-visible</b> class:
+    </p>
+<pre>/* CSS animations for fading in and out */
+.custom-animation &#123;
+    opacity: 0;
+    transform: rotate3d(1, .5, .5, 180deg) scale(0.5);
+    transition: all ease-out 0.4s;
+}
+.custom-animation-visible &#123;
+    opacity: 1;
+    transform: none;
+    transition: all ease-in 0.3s;
+}</pre>
+    <p>
+        Note that:
+    </p>
+    <ul>
+        <li>
+            The custom styles are applied only to the <b>Popup</b> element, not to the modal backdrop.
+        </li>
+        <li>
+            When hiding the <b>Popup</b>, you have a 400ms interval before the <b>Popup</b> is
+            removed from the DOM, so any CSS display transitions should have the same duration.
+        </li>
+    </ul>
+    <p>
+        Click the button below to see the effect of applying these classes to a <b>Popup</b>:
+    </p>
+
+    <wj-popup class="modal-content custom-animation"
+              #frmAnimated
+              [fadeIn]="false"
+              (showing)="showingAnimated(frmAnimated)"
+              (hiding)="hidingAnimated(frmAnimated)">
+        <frm-edit-account-cmp (submit)="submitAccountForm($event,frmAnimated)"></frm-edit-account-cmp>
+    </wj-popup>
+    <button class="btn btn-primary" (click)="frmAnimated.show(true)">
+        edit account with custom animation...
+    </button>
+
+
+    <h3>
+        Popups and Promises
+    </h3>
+    <p>
+        You can easily wrap a <b>Popup</b> in a JavaScript Promise, show the
+        dialog and resolve or reject the promise based on the <b>dialogResult</b>.
+    </p>
+    <p>
+        For example, here is a function that creates a JavaScript Promise.
+        To use the Promise, you would call its 'then' method and pass callbacks
+        for the 'resolve' and 'reject' results. In this case, 'resolve' is
+        called when the user submits the dialog, and 'reject' when the dialog
+        is closed by pressing the Escape key or the close button on the
+        dialog's header.
+    </p>
+    <pre>// create Popup Promise
+ getPopupPromise() &#123;
+    var p = new Promise((resolve, reject)=>  &#123;
+        var popup = this.frmLogIn;
+        popup.show(true);
+        popup.hidden.addHandler(()=> &#123;
+            popup.hidden.removeAllHandlers();
+            if (popup.dialogResult == 'submit') &#123;
+                resolve(popup);
+            } else &#123;
+                reject(popup);
+            }
+        });
+    });
+    return p;
+}</pre>
+
+    <div [ngStyle]="{display: browserSupportsPromises? '' : 'none'}">
+        <p>
+            Click this button to see how this works:
+        </p>
+        <button class="btn btn-primary" (click)="popupPromise()">
+            Show Popup as a Promise
+        </button>
+    </div>
+    <p  [ngStyle]="{display: browserSupportsPromises? 'none' : ''}">
+        Unfortunately, we can't show you this here because the browser you are
+        using does not support promises (Chrome, Edge, and FireFox do; IE doesn't...)
+    </p>
+
+    <h3>
+        Popovers (Popups with owner elements)
+    </h3>
+    <p>
+        <b>Popups</b> may have owner elements that can be used to control their visibility.
+        The <b>showTrigger</b> and <b>hideTrigger</b> properties determine whether the
+        <b>Popups</b> should be shown or hidden when the owner element is clicked or when
+        the popup loses the focus.
+    </p>
+
+    <!-- first element with popup -->
+    <button #button1 type="button" class="btn btn-lg btn-primary">
+        Click to toggle Popup
+        <br>
+        <small>(showTrigger=hideTrigger=Click)</small>
+    </button>
+    <wj-popup class="popover" [owner]="button1" [showTrigger]="'Click'" [hideTrigger]="'Click'">
+       <popover-cmp></popover-cmp>
+    </wj-popup>
+
+    <!-- second element with popup -->
+    <button #button2 type="button" class="btn btn-lg btn-primary">
+        Click to show Popup
+        <br>
+        <small>(showTrigger=Click, hideTrigger=Blur)</small>
+    </button>
+    <wj-popup class="popover" [owner]="button2" [showTrigger]="'Click'" [hideTrigger]="'Blur'">
+        <popover-cmp></popover-cmp>
+    </wj-popup>
+
+    <!-- third element with popup -->
+    <button #button3 type="button" class="btn btn-lg btn-primary">
+        Click to show Popup form
+        <br>
+        <small>(showTrigger=Click, hideTrigger=None)</small>
+    </button>
+    <wj-popup class="popover" [owner]="button3" [showTrigger]="'Click'" [hideTrigger]="'None'">
+        <popover-form-cmp></popover-form-cmp>
+    </wj-popup>
+</div>

@@ -1,0 +1,60 @@
+﻿<div class="container">
+    <h2>
+        Drag and Drop Touch
+    </h2>
+    <p>
+        This sample is based on the <b>html5rocks</b> page at
+        <a href="http://www.html5rocks.com/en/tutorials/dnd/basics/">
+            http://www.html5rocks.com/en/tutorials/dnd/basics/
+        </a>.
+    </p>
+    <p>
+        The original sample uses HTML5 drag and drop events, and therefore
+        works only with the mouse.
+    </p>
+    <p>
+        This version uses the <b>DragDropTouch</b> polyfill so you should
+        be able to drag the rectangles to new positions using the mouse or
+        touch.
+    </p>
+    <div id="columns">
+        <div class="column" draggable="true"><header>A</header></div>
+        <div class="column" draggable="true"><header>B</header></div>
+        <div class="column" draggable="true"><header>C</header></div>
+        <div class="column" draggable="true"><header>X</header></div>
+    </div>
+
+    <h2>
+        Works with <a href="https://wijmo.com/5/docs/topic/wijmo.grid.FlexGrid.Class.html">FlexGrid</a>
+    </h2>
+    <p>
+        Drag columns to new positions using the mouse or touch:
+    </p>
+    <wj-group-panel [grid]="flex"
+                    [placeholder]="'Drag columns here to create Groups'">
+    </wj-group-panel>
+    <wj-flex-grid style="max-height:200px"
+                  #flex
+                  [itemsSource]="data"
+                  [deferResizing]="true">
+    </wj-flex-grid>
+
+    <h2>
+        Works with <a href="https://wijmo.com/5/docs/topic/wijmo.olap.PivotPanel.Class.html">PivotPanel</a>
+    </h2>
+    <p>
+        Drag fields to new build pivot tables using the mouse or touch:
+    </p>
+    <div class="row">
+        <div class="col-md-4">
+            <wj-pivot-panel #thePanel
+                            [itemsSource]="data">
+            </wj-pivot-panel>
+        </div>
+        <div class="col-md-8">
+            <wj-pivot-grid [itemsSource]="thePanel">
+            </wj-pivot-grid>
+        </div>
+    </div>
+
+</div>

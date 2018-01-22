@@ -1,0 +1,63 @@
+﻿<div>
+    <div class="copy">
+        <h3 id="Features">TreeMap</h3>
+        <div class="alert alert-info" role="alert"><b>Important!</b> This feature requires the <a href="http://wijmo.com/5/docs/topic/wijmo.chart.hierarchical.Module.html">wijmo.chart.hierarchical</a> extension module.</div>
+        <p>
+            The TreeMap chart control has five basic properties that allow you to customize its layout and appearance:
+        </p>
+        <ul>
+            <li>
+                <b>type</b>:  Specifies  the type of the TreeMap control.
+            </li>
+            <li>
+                <b>maxDepth</b>:  Specifies the maximum number of node levels to show in the current view.
+            </li>
+            <li>
+                <b>palette</b>:  Specifies an array of default colors to be used when rendering TreeMap.
+            </li>
+        </ul>
+        <p>
+            The example below allows you to see what happens when you change these properties.
+        </p>
+    </div>
+    <div>
+        <div>
+            <div class="container-fluid well">
+                <div class="row">
+                    <div class="col-sm-6 col-xs-6">
+                        <label>Max Depth</label>
+                        <wj-input-number [(value)]="maxDepth"
+                                         [min]="0"
+                                         [max]="4"
+                                         [step]="1"
+                                         format="n">
+                        </wj-input-number>
+                    </div>
+                    <div class="col-sm-3 col-xs-3">
+                        <wj-menu header="Type" [(value)]="type">
+                            <wj-menu-item [value]="TreeMapType.Squarified">Squarified</wj-menu-item>
+                            <wj-menu-item [value]="TreeMapType.Horizontal">Horizontal</wj-menu-item>
+                            <wj-menu-item [value]="TreeMapType.Vertical">Vertical</wj-menu-item>
+                        </wj-menu>
+                    </div>
+                    <div class="col-sm-3 col-xs-3">
+                        <wj-menu #menuPalette header="Palette" [(value)]="palette" (itemClicked)="paletteChanged(menuPalette)">
+                            <wj-menu-item value="Default">Default</wj-menu-item>
+                            <wj-menu-item value="Custom1">Custom1</wj-menu-item>
+                            <wj-menu-item value="Custom2">Custom2</wj-menu-item>
+                        </wj-menu>
+                    </div>
+                </div>
+            </div>
+            <wj-tree-map [palette]="chartPalette"
+                         labelContent="{name}"
+                         [type]="type"
+                         [itemsSource]="data"
+                         bindingName="type"
+                         binding="sales"
+                         childItemsPath="items"
+                         [maxDepth]="maxDepth">
+            </wj-tree-map>
+        </div>
+    </div>
+</div>

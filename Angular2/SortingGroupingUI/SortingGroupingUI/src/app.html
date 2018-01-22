@@ -1,0 +1,95 @@
+﻿<div class="header">
+    <div class="container">
+        <h1>
+            Sorting/Grouping UI
+        </h1>
+    </div>
+</div>
+
+<!-- content -->
+<div class="container">
+    <p>
+        The <b>CollectionView</b> class allows you to sort and group data
+        by multiple fields. This application shows how you can build an
+        Excel-style UI for managing the sorting and grouping fields in a
+        <b>CollectionView</b>.
+    </p>
+    <p>
+        Use the buttons below to edit the <b>SortDescriptions</b> and
+        <b>GroupDescriptions</b> associated with the application's data
+        source. The buttons use different dialogs which acts as views on
+        controllers that provide editing services for the
+        <b>sortDescriptions</b> and <b>groupDescriptions</b> properties
+        of a <b>CollectionView</b> object.
+    </p>
+
+    <!-- edit sort definitions -->
+    <p>
+        Edit <b>sort definitions</b> using a ComboBox-based dialog:
+        <button class="btn btn-default"
+                data-toggle="modal"
+                data-backdrop="static"
+                data-keyboard="false"
+                data-target="#dlgSortCombo"
+                (click)="sortManager.setView(view)">
+            <span class="glyphicon glyphicon-align-justify"></span>
+            Sort...
+        </button>
+        <sort-dialog-combo-cmp #sortDialogCombo></sort-dialog-combo-cmp>
+
+        Or using a FlexGrid-based dialog:
+        <button class="btn btn-default"
+                data-toggle="modal"
+                data-backdrop="static"
+                data-keyboard="false"
+                data-target="#dlgSortFlex"
+                (click)="sortManager.setView(view)">
+            <span class="glyphicon glyphicon-th"></span>
+            Sort...
+        </button>
+        <sort-dialog-flex-cmp></sort-dialog-flex-cmp>
+    </p>
+
+    <!-- edit group definitions -->
+    <p>
+        Edit <b>group definitions</b> using a ComboBox-based dialog:
+        <button class="btn btn-default"
+                data-toggle="modal"
+                data-backdrop="static"
+                data-keyboard="false"
+                data-target="#dlgGroupCombo"
+                (click)="groupManager.setView(view, properties)">
+            <span class="glyphicon glyphicon-align-justify"></span>
+            Group...
+        </button>
+        <group-dialog-combo-cmp></group-dialog-combo-cmp>
+
+        Or using a FlexGrid-based dialog:
+        <button class="btn btn-default"
+                data-toggle="modal"
+                data-backdrop="static"
+                data-keyboard="false"
+                data-target="#dlgGroupFlex"
+                (click)="groupManager.setView(view, properties)">
+            <span class="glyphicon glyphicon-th"></span>
+            Group...
+        </button>
+        <group-dialog-flex-cmp></group-dialog-flex-cmp>
+    </p>
+
+    <p>
+        See the effect of the sorting and grouping on the grid below:
+    </p>
+    <wj-flex-grid style="max-height:300px"
+                  [allowSorting]="false"
+                  [itemsSource]="view">
+        <wj-flex-grid-column binding="id" header="ID"></wj-flex-grid-column>
+        <wj-flex-grid-column binding="date" header="Date"></wj-flex-grid-column>
+        <wj-flex-grid-column binding="country" header="Country" dataMap="countries"></wj-flex-grid-column>
+        <wj-flex-grid-column binding="product" header="Product" dataMap="products"></wj-flex-grid-column>
+        <wj-flex-grid-column binding="color" header="Color" dataMap="colors"></wj-flex-grid-column>
+        <wj-flex-grid-column binding="amount" header="Amount" format="n2"></wj-flex-grid-column>
+        <wj-flex-grid-column binding="discount" header="Discount" format="p0"></wj-flex-grid-column>
+        <wj-flex-grid-column binding="active" header="Active"></wj-flex-grid-column>
+    </wj-flex-grid>
+</div>

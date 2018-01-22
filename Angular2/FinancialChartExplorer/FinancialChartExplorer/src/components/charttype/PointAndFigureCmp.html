@@ -1,0 +1,106 @@
+﻿<div>
+    <h2>{{title}}</h2>
+    <p>
+        Point and Figure chart consists of columns of X's and O's that represent filtered price movements. X-Columns represent rising prices and O-Columns represent falling prices.
+    </p>
+    <!-- Symbol -->
+    <label>Symbol</label>
+    <wj-combo-box [itemsSource]="dataList"
+                  displayMemberPath="name"
+                  selectedValuePath="symbol"
+                  [(selectedValue)]="selectedSymbol"
+                  (selectedIndexChanged)="selectedSymbolChanged()">
+    </wj-combo-box>
+    
+    <!-- FinancialChart -->
+    <wj-financial-chart #chart
+                        [itemsSource]="data"
+                        bindingX="date"
+                        chartType="PointAndFigure"
+                        [(options)]="options"
+                        (rendered)="chartRendered()">
+        <wj-financial-chart-series binding="high,low,open,close"
+                                   [name]="selectedSymbol | uppercase"
+                                   [style]="style"
+                                   [altStyle]="altStyle">
+        </wj-financial-chart-series>
+    </wj-financial-chart>
+
+    <!-- Settings -->
+    <div class="panel-group" id="settings">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    {{title}} Settings
+                </h4>
+            </div>
+            <div id="settingsBody" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <ul class="list-inline">
+                        <li>
+                            <wj-menu #menuFields
+                                     header="Fields"
+                                     [(value)]="options.pointAndFigure.fields"
+                                     (itemClicked)="optionChanged()">
+                                <wj-menu-item value="Close">Close</wj-menu-item>
+                                <wj-menu-item value="HighLow">HighLow</wj-menu-item>
+                            </wj-menu>
+                        </li>
+                        <li>
+                            <label>Reversal</label>
+                            <wj-input-number #reversal
+                                             [(value)]="options.pointAndFigure.reversal"
+                                             [min]="2" [max]="5" [step]="1" format="'n0'"
+                                             (valueChanged)="inputNumberChanged(reversal)">
+                            </wj-input-number>
+                        </li>
+                        <li>
+                            <wj-menu #menuScaling
+                                     header="Scaling"
+                                     [(value)]="options.pointAndFigure.scaling"
+                                     (itemClicked)="scalingChanged(menuScaling)">
+                                <wj-menu-item value="Traditional">Traditional</wj-menu-item>
+                                <wj-menu-item value="Fixed">Fixed</wj-menu-item>
+                                <wj-menu-item value="Dynamic">Dynamic</wj-menu-item>
+                            </wj-menu>
+                        </li>
+                    </ul>
+                    <ul class="list-inline">
+                        <li>
+                            <label>Box Size</label>
+                            <wj-input-number #boxSize
+                                             [(value)]="options.pointAndFigure.boxSize"
+                                             [min]="1" [step]="1" format="'n0'"
+                                             [isDisabled]='true'
+                                             (valueChanged)="inputNumberChanged(boxSize)">
+                            </wj-input-number>
+                        </li>
+                        <li>
+                            <label>ATR Period</label>
+                            <wj-input-number #period
+                                             [(value)]="options.pointAndFigure.period"
+                                             [min]="7" [max]="30" [step]="1" format="'n0'"
+                                             [isDisabled]='true'
+                                             (valueChanged)="inputNumberChanged(period)">
+                            </wj-input-number>
+                        </li>
+                    </ul>
+                    <ul class="list-inline">
+                        <li>
+                            <label>Stroke</label>
+                            <wj-input-color [(value)]="style.stroke"
+                                            (valueChanged)="optionChanged()">
+                            </wj-input-color>
+                        </li>
+                        <li>
+                            <label>Alt. Stroke</label>
+                            <wj-input-color [(value)]="altStyle.stroke"
+                                            (valueChanged)="optionChanged()">
+                            </wj-input-color>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

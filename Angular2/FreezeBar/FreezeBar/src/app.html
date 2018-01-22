@@ -1,0 +1,30 @@
+﻿<div class="container">
+
+    <h3>
+        FreezeBar
+    </h3>
+    <p>
+        Drag the blue bar to change the number of frozen columns
+        on the grid.
+    </p>
+
+    <wj-flex-grid #flex
+                  [itemsSource]="data"
+                  [selectionMode]="'Row'"
+                  [frozenColumns]="1"
+                  (initialized)="initGrid(flex)">
+        <wj-flex-grid-column [binding]="'country'"></wj-flex-grid-column>
+        <wj-flex-grid-column [binding]="'downloads'"></wj-flex-grid-column>
+        <wj-flex-grid-column [binding]="'sales'"></wj-flex-grid-column>
+        <wj-flex-grid-column [binding]="'expenses'"></wj-flex-grid-column>
+        <wj-flex-grid-column [binding]="'country'"></wj-flex-grid-column>
+        <wj-flex-grid-column [binding]="'downloads'"></wj-flex-grid-column>
+        <wj-flex-grid-column [binding]="'sales'"></wj-flex-grid-column>
+        <wj-flex-grid-column [binding]="'expenses'"></wj-flex-grid-column>
+        <wj-flex-grid-column [binding]="'country'"></wj-flex-grid-column>
+        <wj-flex-grid-column [binding]="'downloads'"></wj-flex-grid-column>
+        <wj-flex-grid-column [binding]="'sales'"></wj-flex-grid-column>
+        <wj-flex-grid-column [binding]="'expenses'"></wj-flex-grid-column>
+    </wj-flex-grid>
+
+</div>

@@ -1,0 +1,31 @@
+﻿<div>
+    <div class="header">
+        <div class="container">
+            <h1>
+                <img src="resources/finance.png" />
+                Wijmo Axis Scrollbar
+            </h1>
+            <p>
+                Viewing large charts can be difficult in compact user interfaces. Hence, the AxisScrollbar gives you an option of adding scrollbar to the axis of the chart.
+            </p>
+            <p>
+                This sample allows you to view the chart with the scrollbars on X and Y axis of the chart.
+            </p>
+        </div>
+    </div>
+    <div class="container">
+        <!-- chart -->
+        <div class="panel panel-default chartcontainer">
+            <wj-flex-chart #stChart (rendered)="chartRendered(stChart)"
+                           plotMargin="NaN NaN NaN 80"
+                           class="stchart"
+                           chartType="Line"
+                           bindingX="date"
+                           [itemsSource]="data"
+                           tooltipContent="">
+                <wj-flex-chart-series binding="yval"></wj-flex-chart-series>
+            </wj-flex-chart>
+        </div>
+
+    </div>
+</div>

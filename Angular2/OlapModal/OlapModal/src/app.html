@@ -1,0 +1,105 @@
+﻿<div class="container">
+
+    <h1>
+        Wijmo Olap with Modal Dialogs
+    </h1>
+
+    <p>
+        This example shows how you can show the <b>PivotPanel</b> control on demand,
+        in a Bootstrap modal dialog.
+    </p>
+    <p>
+        The <b>PivotGrid</b> below has its <b>itemsSource</b> property set to a
+        <b>PivotPanel</b> control contained in a Bootstrap modal dialog.
+    </p>
+    <p>
+        The <b>PivotPanel</b> control is initialized as usual, but is not visible
+        until you show the dialog by clicking one of the <b>Configure Pivot View</b>
+        buttons below the grid.
+    </p>
+
+    <wj-pivot-grid [itemsSource]="theEngine"
+                   [showSelectedHeaders]="'All'">
+    </wj-pivot-grid>
+
+    <h2>
+        Wijmo Popup Dialog
+    </h2>
+    <p>
+        Click this button to show a wijmo <b>Popup</b> modal dialog containing another
+        <b>PivotPanel</b> control connected to the same <b>PivotEngine</b> as the
+        panel hosted in the Boostrap modal above:
+    </p>
+
+    <button class="btn btn-default"
+            (click)="dlgWijmo.show()">
+        <span class="glyphicon glyphicon-edit"></span>
+        Configure Pivot View in a Wijmo dialog...
+    </button>
+
+    <!-- Wijmo dialog containing another PivotPanel control connected to the same engine -->
+    <wj-popup #dlgWijmo class="modal-dialog" [modal]="true" [hideTrigger]="'None'">
+        <div class="wj-dialog-header">
+            <button type="button"
+                    class="close wj-hide"
+                    aria-hidden="true">
+                &times;
+            </button>
+            <h4 class="modal-title">Configure Pivot View (Wijmo Popup)</h4>
+        </div>
+        <div style="padding:12px">
+            <wj-pivot-panel [engine]="theEngine">
+            </wj-pivot-panel>
+            <div class="wj-dialog-footer">
+                <button type="button" class="btn btn-primary wj-hide">
+                    Close
+                </button>
+            </div>
+        </div>
+    </wj-popup>
+
+    <h2>
+        Bootstrap Modal Dialog
+    </h2>
+    <p>
+        Or click this button to show a Bootstrap modal dialog containing the
+        <b>PivotPanel</b> control being used as an <b>itemsSource</b>
+        for the grid above:
+    </p>
+
+    <button class="btn btn-default"
+            data-toggle="modal"
+            data-backdrop="static"
+            data-target="#dlgPivotPanel"
+             (click)="refresh()">
+        <span class="glyphicon glyphicon-edit"></span>
+        Configure Pivot View in a Boostrap modal...
+    </button>
+
+    <!-- Bootstrap modal div containing the PivotPanel control -->
+    <div class="modal fade" id="dlgPivotPanel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">Configure Pivot View (Bootstrap Modal)</h4>
+                </div>
+                <div class="modal-body">
+                    <wj-pivot-panel #pivotPnl [engine]="theEngine">
+                    </wj-pivot-panel>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div><!-- modal-content -->
+        </div><!-- modal-dialog -->
+    </div><!-- modal -->
+
+</div>

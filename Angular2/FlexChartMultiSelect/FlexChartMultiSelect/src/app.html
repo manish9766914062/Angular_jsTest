@@ -1,0 +1,53 @@
+﻿    <!-- page header -->
+<div class="header">
+    <div class="container">
+        <h1>
+            <img src="https://grapecitycontentcdn.azureedge.net/gcbrand/samples/wijmo/wijmo-logo.png" alt="Wijmo" />
+            FlexChart Selection
+        </h1>
+    </div>
+</div>
+
+<main id="content" role="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    This sample demonstrates how you can implement multi-point selection on a FlexChart control.
+                    Dragging on the chart will clear the currently selected points and select a new set of points
+                    that lie within the drag area. Ctrl+clicking on a point will also toggle its selection state,
+                    while Ctrl+clicking on an empty portion of the chart will clear the current selection.
+                </p>
+                <div ng-cloak>
+                    <div id="plotSelection" #plotSelection></div>
+
+                    <wj-flex-chart #flexChart
+                                   [itemsSource]="data" [bindingX]="'country'" (rendered)="chartRendered(flexChart)" 
+                                   [tooltipContent]="" [chartType]="chartType">
+                        <wj-flex-chart-series [binding]="'sales'" [name]="'Sales'"></wj-flex-chart-series>
+                        <wj-flex-chart-series [binding]="'downloads'" [name]="'Downloads'"></wj-flex-chart-series>
+                        <wj-flex-chart-legend [position]="'Top'"></wj-flex-chart-legend>
+                    </wj-flex-chart>
+
+                    <button (click)="clear()" class="btn btn-default">Clear Selection</button>
+                    <button (click)="selectValuesUnder500()" class="btn btn-default">Select Under 500</button>
+
+                    <wj-menu [header]="'Chart Type'" [(value)]="chartType">
+                        <wj-menu-item [value]="'Column'">Column</wj-menu-item>
+                        <wj-menu-item [value]="'Bar'">Bar</wj-menu-item>
+                        <wj-menu-item [value]="'LineSymbols'">Line Symbols</wj-menu-item>
+                        <wj-menu-item [value]="'SplineSymbols'">Spline Symbols</wj-menu-item>
+                        <wj-menu-item [value]="'Scatter'">Scatter</wj-menu-item>
+                    </wj-menu>
+
+                    <div>
+                        <label>Selected Items</label>
+                        <ul>
+                            <li *ngFor="let item of items">Series Name: {{ item.series.name }} - Point Index: {{ item.pointIndex }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

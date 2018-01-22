@@ -1,0 +1,54 @@
+﻿<div>
+    <div class="copy">
+		<h3>Expense analysis report</h3>
+		<p>
+			This sample shows how to create a simple expense analysis report using FlexGrid and FlexPie.
+		</p>
+		<div class="collapsed-content collapse">
+			<p>
+				The <b>FlexGridPdfConverter.draw</b> method is used to export the FlexGrid, and
+				the PdfPageArea's <b>drawImage</b> method is used to export the FlexPie which had
+				previously been converted to an image.
+			</p>
+		</div>
+		<p>
+			<button type="button" data-toggle="collapse"
+				data-target=".collapsed-content, .btn.btn-default.btn-xs.collapse"
+				class="btn btn-default btn-xs collapse in">
+				Read more
+			</button>
+		</p>
+	</div>
+
+	<!-- Export button -->
+	<div class="row">
+		<button class="btn btn-default" id="Button1" (click)="export()">Export</button>
+	</div>
+
+	<!-- FlexGrid, FlexPie -->
+	<div class="row">
+		<div class="col-xs-6">
+			<wj-flex-grid class="grid"
+					#flexGrid
+					headersVisibility="Column"
+					allowMerging="All"
+					[itemsSource]="employee.Expenses">
+				<wj-flex-grid-column header="Date" binding="Date" format="d" min-width="80"></wj-flex-grid-column>
+				<wj-flex-grid-column header="Hotel" binding="Hotel" format="c"></wj-flex-grid-column>
+				<wj-flex-grid-column header="Transport" binding="Transport" format="c" min-width="80"></wj-flex-grid-column>
+				<wj-flex-grid-column header="Meal" binding="Meal" format="c"></wj-flex-grid-column>
+				<wj-flex-grid-column header="Fuel" binding="Fuel" format="c"></wj-flex-grid-column>
+				<wj-flex-grid-column header="Misc" binding="Misc" format="c"></wj-flex-grid-column>
+			</wj-flex-grid>
+		</div>
+		<div class="col-xs-6">
+			<wj-flex-pie #flexPie
+					[itemsSource]="totals"
+					binding="value"
+					bindingName="name"
+					[innerRadius]="0.75">
+				<wj-flex-pie-data-label content="{value:c1}" position="Inside"></wj-flex-pie-data-label>
+			</wj-flex-pie>
+		</div>
+	</div>
+</div>

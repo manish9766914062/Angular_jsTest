@@ -1,0 +1,488 @@
+﻿<div class="header">
+    <div class="container">
+        <img src="https://grapecitycontentcdn.azureedge.net/gcbrand/samples/wijmo/wijmo-logo.png" />
+        <h1>
+            TreeMap 101
+        </h1>
+        <p>
+            This page shows how to get started with Wijmo's TreeMap control.
+        </p>
+    </div>
+</div>
+<div class="container">
+
+    <!-- getting started -->
+    <h2 id="Start">
+        Getting Started
+    </h2>
+    <p>
+        Here are the steps for getting started with the TreeMap control in JavaScript applications:
+    </p>
+    <ol>
+        <li>Add references to AngularJS, Wijmo, and Wijmo's AngularJS directives.</li>
+        <li>
+            Add a component to provide data and logic.<br />
+        </li>
+        <li>Add a TreeMap to the page and bind it to the data.</li>
+        <li>Add some CSS to customize the treemap's appearance.</li>
+    </ol>
+    <div class="row">
+        <div class="col-md-6">
+            <app-tab>
+                <app-tab-pane title="HTML">
+                    <div class="pane-content">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;link rel="stylesheet" type="text/css" href="css/bootstrap.css" /&gt;
+&lt;link rel="stylesheet" type="text/css" href="css/wijmo.css" /&gt;
+&lt;link rel="stylesheet" type="text/css" href="css/app.css"/&gt;
+&lt;!-- Angular 2 --/&gt;
+&lt;!-- Polyfill(s) for older browsers --&gt;
+&lt;script src="node_modules/core-js/client/shim.min.js"&gt;&lt;/script&gt;
+
+&lt;script src="node_modules/zone.js/dist/zone.js"&gt;&lt;/script&gt;
+&lt;script src="node_modules/reflect-metadata/Reflect.js"&gt;&lt;/script&gt;
+&lt;script src="node_modules/systemjs/dist/system.src.js"&gt;&lt;/script&gt;
+
+
+&lt;!-- Configure SystemJS -->
+&lt;script src="systemjs.config.js"&gt;&lt;/script&gt;
+
+&lt;!-- JQuery/Bootstrap --&gt;
+&lt;script src="bin/Devel/external/jquery.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="bin/Devel/external/bootstrap.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" type="text/css" href="bin/Devel/external/bootstrap/css/bootstrap.css" /&gt;
+&lt;!-- Wijmo --&gt;
+&lt;link href="bin/Devel/sources/styles/wijmo.css" rel="stylesheet" /&gt;
+
+&lt;!-- Configure and load application --&gt;
+&lt;link href="src/styles/app.css" rel="stylesheet" /&gt;
+
+&lt;!-- custom Wijmo themes -->
+&lt;link id="activeThemeLink" href="" rel="stylesheet" /&gt;
+&lt;!-- Load the root application module --&gt;
+&lt;script&gt;
+    System.import('./src/app');
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;!-- Add root application component --&gt;
+&lt;app-cmp&gt;
+ &lt;wj-tree-map [itemsSource]="data" labelContent="&#123;name}" [bindingName]="bindingName" binding="sales"&gt;
+ &lt;/wj-tree-map&gt;
+&lt;/app-cmp&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                    </div>
+                </app-tab-pane>
+                <app-tab-pane title="TS">
+                    <div class="pane-content">
+import &#123; Injectable } from '@angular/core';
+
+// Common data service
+@Injectable()
+export class DataSvc &#123;  
+    rand(): number &#123;
+        return Math.round(Math.random() * 100);
+    };
+
+    categories: ['Beverages', 'Condiments', 'Confections', 'Dairy Products', 'Grains/Cereals', 'Meat/Poultry', 'Produce', 'Seafood'];
+    subCategories = [['Soft drinks', 'Coffees', 'Teas', 'Beers', 'Ales'], ['Sweet and Savory sauces', 'Relishes', 'Spreads', 'Seasonings'],
+        ['Desserts', 'Candies', 'Sweet breads'], ['Chesses'], ['Breads', 'Crackers', 'Pasta', 'Cereal'], ['Prepared meats'], ['Dried fruit', 'Bean curd'], ['Seaweed', 'Fish']];
+
+    // data used to generate random items
+    getData(): any[] &#123;
+        var data = [];
+
+        this.categories.forEach(function (c, idx) &#123;
+            var sub = this.subCategories[idx];
+            sub.forEach(function (s) &#123;
+                data.push(&#123;
+                    category: c,
+                    subCategory: s,
+                    sales: this.rand()
+                });
+            });
+        });
+        return data;
+    };
+}
+--------------------Component-----------------------
+// Angular
+
+import * as wjcCore from 'wijmo/wijmo';
+import * as wjcChart from 'wijmo/wijmo.chart';
+import * as wjcInput from 'wijmo/wijmo.input';
+
+import &#123; Component, EventEmitter, Input, Inject, enableProdMode, ViewChild, NgModule } from '@angular/core';
+import &#123; FormsModule } from '@angular/forms';
+import &#123; CommonModule } from '@angular/common';
+import &#123; platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import &#123; BrowserModule } from '@angular/platform-browser';
+import &#123; WjChartModule } from 'wijmo/wijmo.angular2.chart';
+import &#123; WjChartHierarchicalModule } from 'wijmo/wijmo.angular2.chart.hierarchical';
+import &#123; WjInputModule } from 'wijmo/wijmo.angular2.input';
+import &#123; TabsModule } from './components/AppTab';
+import &#123; DataSvc } from './services/DataSvc';
+
+ // The Explorer application root component.
+ @Component(&#123;
+     selector: 'app-cmp',
+     templateUrl: 'src/app.html'
+ })
+
+ export class AppCmp &#123;
+    data;
+    protected dataSvc: DataSvc;
+    bindingName;
+
+    constructor(@Inject(DataSvc) dataSvc: DataSvc) &#123;
+        // data for FlexChart
+        this.dataSvc = dataSvc;
+        this.data = this.dataSvc.getData();
+        this.bindingName = ['category', 'subCategory'];
+    }
+ }
+
+ @NgModule(&#123;
+     imports: [WjInputModule, WjChartModule, WjChartHierarchicalModule, BrowserModule, FormsModule, TabsModule],
+     declarations: [AppCmp],
+     providers: [DataSvc],
+     bootstrap: [AppCmp]
+ })
+ export class AppModule &#123;
+ }
+
+
+enableProdMode();
+// Bootstrap application with hash style navigation and global services.
+platformBrowserDynamic().bootstrapModule(AppModule);
+                    </div>
+                </app-tab-pane>
+                <app-tab-pane title="CSS">
+                    <div class="pane-content">
+ /* set default chart style */
+ .wj-treemap &#123;
+     height: 400px;
+     background-color: white;
+     box-shadow: 4px 4px 10px 0px rgba(50, 50, 50, 0.75);
+     padding: 8px;
+     margin-bottom: 12px;
+     display:block;
+ }
+                    </div>
+                </app-tab-pane>
+            </app-tab>
+        </div>
+        <div class="col-md-6">
+            <h4>Result (live):</h4>
+            <wj-tree-map [itemsSource]="data" labelContent="{name}" [bindingName]="bindingName" binding="sales">
+            </wj-tree-map>
+        </div>
+    </div>
+
+    <!-- Group CollectionView -->
+    <h2 id="groupCollectionView">
+        Group Collection
+    </h2>
+    <p>
+        The sample shows how to use the TreeMap chart with grouped CollectionView.
+    </p>
+    <div class="row">
+        <div class="col-md-6">
+            <app-tab>
+                <app-tab-pane title="HTML">
+                    <div ng-non-bindable class="pane-content">
+ &lt;wj-tree-map [itemsSource]="groupData" labelContent="&#123;name}" [bindingName]="bindingName" binding="sales"&gt;
+ &lt;/wj-tree-map&gt;
+                    </div>
+                </app-tab-pane>
+                <app-tab-pane title="TS">
+                    <div class="pane-content">
+                        
+import &#123; Injectable } from '@angular/core';
+import * as wjcCore from 'wijmo/wijmo';
+// Common data service
+@Injectable()
+export class DataSvc &#123;  
+    rand(): number &#123;
+        return Math.round(Math.random() * 100);
+    };
+
+    categories: ['Beverages', 'Condiments', 'Confections', 'Dairy Products', 'Grains/Cereals', 'Meat/Poultry', 'Produce', 'Seafood'];
+    subCategories = [['Soft drinks', 'Coffees', 'Teas', 'Beers', 'Ales'], ['Sweet and Savory sauces', 'Relishes', 'Spreads', 'Seasonings'],
+        ['Desserts', 'Candies', 'Sweet breads'], ['Chesses'], ['Breads', 'Crackers', 'Pasta', 'Cereal'], ['Prepared meats'], ['Dried fruit', 'Bean curd'], ['Seaweed', 'Fish']];
+
+    // data used to generate random items
+    getGroupCVData(): wjcCore.CollectionView &#123;
+        var data = [],
+            len = 1000,
+            catLen = this.categories.length,
+            subCat, randomC, randomSC;
+
+        for (var i = 0; i < len; i++) &#123;
+            randomC = Math.floor(Math.random() * catLen);
+            subCat = this.subCategories[randomC];
+            randomSC = Math.floor(Math.random() * subCat.length);
+
+            data.push(&#123;
+                category: this.categories[randomC],
+                subCategory: subCat[randomSC],
+                sales: this.rand()
+            });
+        }
+        var cv = new wjcCore.CollectionView(data);
+
+
+        cv.groupDescriptions.push(new wjcCore.PropertyGroupDescription('category'));
+        cv.groupDescriptions.push(new wjcCore.PropertyGroupDescription('subCategory'));
+        return cv;
+    };
+}
+--------------------Component-----------------------
+export class AppCmp &#123;     
+    groupData;
+    protected dataSvc: DataSvc;
+
+    //chart properties
+    bindingName = ['category', 'subCategory'];
+
+    constructor(@Inject(DataSvc) dataSvc: DataSvc) &#123;
+      // data for FlexChart
+      this.dataSvc = dataSvc;
+      this.groupData = this.dataSvc.getGroupCVData();
+    }
+}
+                    </div>
+                </app-tab-pane>
+            </app-tab>
+        </div>
+        <div class="col-md-6">
+            <h4>Result (live):</h4>
+            <wj-tree-map [itemsSource]="groupData" labelContent="{name}" [bindingName]="bindingName" binding="sales">
+            </wj-tree-map>
+        </div>
+    </div>
+    
+    <!-- Type -->
+    <h2 id="type">
+        Type
+    </h2>
+    <p>
+        The TreeMap chart control allows you to customize its layout and appearance by using the <b>type</b> property.
+    </p>
+    <div class="row">
+        <div class="col-md-6">
+            <app-tab>
+                <app-tab-pane title="HTML">
+                    <div class="pane-content">
+&lt;wj-tree-map #typeTM [type]="type" [itemsSource]="data" labelContent="&#123;name}" [bindingName]="bindingName" binding="sales"&gt;
+&lt;/wj-tree-map&gt;
+&lt;wj-menu #typeMenu header="Type" value="Squarified"
+            (itemClicked)="typeChanged(typeMenu)"&gt;
+    &lt;wj-menu-item value="Squarified"&gt;Squarified&lt;/wj-menu-item&gt;
+    &lt;wj-menu-item value="Horizontal"&gt;Horizontal&lt;/wj-menu-item&gt;
+    &lt;wj-menu-item value="Vertical"&gt;Vertical&lt;/wj-menu-item&gt;
+&lt;/wj-menu&gt;
+                    </div>
+                </app-tab-pane>
+                <app-tab-pane title="TS">
+                    <div class="pane-content">
+export class AppCmp &#123;
+    data;
+    @ViewChild('typeTM') typeTM: wjcChartHierarchical.TreeMap;
+    
+    protected dataSvc: DataSvc;
+
+    constructor(@Inject(DataSvc) dataSvc: DataSvc) &#123;
+        this.dataSvc = dataSvc;
+        this.data = this.dataSvc.getData();
+    }
+
+    typeChanged = (sender: wjcInput.Menu) => &#123;
+        if (!this.typeTM) &#123;
+            return;
+        }
+        this.typeTM.type = sender.selectedValue;
+    };
+}
+                    </div>
+                </app-tab-pane>
+            </app-tab>
+        </div>
+        <div class="col-md-6">
+            <h4>Result (live):</h4>
+            <wj-tree-map  #typeTM 
+                         [itemsSource]="data" 
+                         labelContent="&#123;name}" 
+                         [bindingName]="bindingName" 
+                         binding="sales"
+                         [type]="treeMapType">
+            </wj-tree-map>
+            <wj-menu #typeMenu header="Type" [(value)]="treeMapType">
+                <wj-menu-item [value]="TreeMapType.Squarified">Squarified</wj-menu-item>
+                <wj-menu-item [value]="TreeMapType.Horizontal">Horizontal</wj-menu-item>
+                <wj-menu-item [value]="TreeMapType.Vertical">Vertical</wj-menu-item>
+            </wj-menu>
+        </div>
+    </div>
+    <!-- Max Depth -->
+    <h2 id="maxDepth">
+        Max Depth
+    </h2>
+    <p>
+        The TreeMap chart control allows you to set the maximum number of node levels to show in the current view by using the <b>maxDepth</b> property.
+        Levels are flattened into the current plane.
+    </p>
+    <div class="row">
+        <div class="col-md-6">
+            <app-tab>
+                <app-tab-pane title="HTML">
+                    <div class="pane-content">
+&lt;wj-tree-map #maxDepthTM [itemsSource]="maxDepthData" [maxDepth]="2"
+                         labelContent="&#123;name}" bindingName="type" binding="sales" childItemsPath="items"&gt;
+&lt;/wj-tree-map&gt;
+&lt;wj-input-number #inputMaxDepth (valueChanged)="maxDepthChanged(inputMaxDepth)"
+                    [value]="2"
+                    [min]="0"
+                    [max]="4"
+                    [step]="1"&gt;
+&lt;/wj-input-number&gt;
+                    </div>
+                </app-tab-pane>
+                <app-tab-pane title="TS">
+                    <div class="pane-content">
+ export class AppCmp &#123;      
+     maxDepthData;
+     @ViewChild('maxDepthTM') maxDepthTM: wjcChartHierarchical.TreeMap;
+
+     protected dataSvc: DataSvc;
+
+     constructor(@Inject(DataSvc) dataSvc: DataSvc) &#123;
+         // data for FlexChart
+         this.dataSvc = dataSvc;
+         this.maxDepthData = this.dataSvc.getMaxDepthData();
+     }
+
+     maxDepthChanged = (sender: wjcInput.InputNumber) => &#123;
+         if (sender.value < sender.min || sender.value > sender.max) &#123;
+             return;
+         }
+         if (!this.maxDepthTM) &#123;
+             return;
+         }
+         this.maxDepthTM.maxDepth = +sender.value;
+     };
+ }
+                    </div>
+                </app-tab-pane>
+            </app-tab>
+        </div>
+        <div class="col-md-6">
+            <h4>Result (live):</h4>
+            <wj-tree-map #maxDepthTM 
+                         [itemsSource]="maxDepthData" 
+                         [maxDepth]="maxDepth"
+                         labelContent="{name}" 
+                         bindingName="type" 
+                         binding="sales" 
+                         childItemsPath="items">
+            </wj-tree-map>
+            <wj-input-number #inputMaxDepth 
+                             [(value)]="maxDepth"
+                             [min]="0"
+                             [max]="4"
+                             [step]="1">
+            </wj-input-number>
+        </div>
+    </div>
+
+    <!-- theming -->
+    <h2 id="Theming">
+        Theming
+    </h2>
+    <p>
+        The TreeMap chart control allows you to customize the appearance by using the <b>palette</b> property.
+    </p>
+    <div class="row">
+        <div class="col-md-6">
+            <app-tab>
+                <app-tab-pane title="HTML">
+                    <div class="pane-content">
+&lt;wj-tree-map class="custom-treemap" [itemsSource]="data" labelContent="&#123;name}" [bindingName]="bindingName" binding="sales" [palette]="palette1"&gt;
+&lt;/wj-tree-map&gt;
+&lt;wj-tree-map class="custom-treemap" [itemsSource]="data" labelContent="&#123;name}" [bindingName]="bindingName" binding="sales" [palette]="palette2"&gt;
+&lt;/wj-tree-map&gt;
+                    </div>
+                </app-tab-pane>
+                <app-tab-pane title="TS">
+                    <div class="pane-content">
+ export class AppCmp &#123;      
+     data;
+     protected dataSvc: DataSvc;
+     palette1;
+     palette2;
+     bindingName;
+
+     constructor(@Inject(DataSvc) dataSvc: DataSvc) &#123;
+         // data for FlexChart
+         this.dataSvc = dataSvc;
+         this.data = this.dataSvc.getData();
+         this.bindingName = ['category', 'subCategory'];
+         this.palette1 = [&#123;
+             titleColor: '#00277d',
+             maxColor: 'rgba(0,39,125,0.7)',
+             minColor: 'rgba(168,187,230,0.7)'
+         }, &#123;
+             titleColor: '#7d1f00',
+             maxColor: 'rgba(125,21,0,0.7)',
+             minColor: 'rgba(230,183,168,0.7)'
+         }, &#123;
+             titleColor: '#007d27',
+             maxColor: 'rgba(0,125,39,0.7)',
+             minColor: 'rgba(168,230,188,0.7)'
+         }, &#123;
+             titleColor: '#7d003c',
+             maxColor: 'rgba(125,0,60,0.7)',
+             minColor: 'rgba(230,168,198,0.7)'
+         }, &#123;
+             titleColor: '#7d4300',
+             maxColor: 'rgba(125,67,0,0.7)',
+             minColor: 'rgba(230,201,168,0.7)'
+         }, &#123;
+             titleColor: '#51007d',
+             maxColor: 'rgba(81,0,125,0.7)',
+             minColor: 'rgba(209,170,230,0.7)'
+         }, &#123;
+             titleColor: '#7d7400',
+             maxColor: 'rgba(125,116,0,0.7)',
+             minColor: 'rgba(230,226,168,0.7)'
+         }, &#123;
+             titleColor: '#970000',
+              maxColor: 'rgba(151,0,0,0.7)',
+             minColor: 'rgba(230,169,169,0.7)'
+         }];
+         this.palette2 = ['#88bde6', '#fbb258', '#90cd97', '#f6aac9', '#bfa554', '#bc99c7', '#eddd46', '#f07e6e', '#8c8c8c'];
+     }
+ }
+                    </div>
+                </app-tab-pane>
+                <app-tab-pane title="CSS">
+                    <div class="pane-content">
+.custom-treemap .wj-data-label &#123;
+    fill: #000;
+}
+                    </div>
+                </app-tab-pane>
+            </app-tab>
+        </div>
+        <div class="col-md-6">
+            <h4>Result (live):</h4>
+            <wj-tree-map class="custom-treemap" [itemsSource]="data" labelContent="{name}" [bindingName]="bindingName" binding="sales" [palette]="palette1">
+            </wj-tree-map>
+            <wj-tree-map class="custom-treemap" [itemsSource]="data" labelContent="{name}" [bindingName]="bindingName" binding="sales" [palette]="palette2">
+            </wj-tree-map>
+        </div>
+    </div>
+</div>

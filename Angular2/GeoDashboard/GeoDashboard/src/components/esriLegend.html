@@ -1,0 +1,6 @@
+﻿<div class="row text-left"  [ngStyle]="{display:source?'':'none'}" *ngIf="source">
+    <div class="col-md-3" *ngFor="let legend of source.legends">
+        <div [ngStyle]="{margin:'0px 3px',width:'14px',height:'14px',display:'inline-block','background-color':legend.color}"></div>
+        {{legend.label}}
+    </div>
+ </div>

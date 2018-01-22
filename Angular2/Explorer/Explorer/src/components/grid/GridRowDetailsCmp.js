@@ -1,0 +1,146 @@
+"use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var wjcGridDetail = require("wijmo/wijmo.grid.detail");
+var wjcCore = require("wijmo/wijmo");
+var wjcGrid = require("wijmo/wijmo.grid");
+'use strict';
+var core_1 = require("@angular/core");
+var common_1 = require("@angular/common");
+var forms_1 = require("@angular/forms");
+var router_1 = require("@angular/router");
+var http_1 = require("@angular/http");
+var GridBaseCmp_1 = require("./GridBaseCmp");
+var DataSvc_1 = require("../../services/DataSvc");
+var wijmo_angular2_grid_1 = require("wijmo/wijmo.angular2.grid");
+var wijmo_angular2_input_1 = require("wijmo/wijmo.angular2.input");
+var wijmo_angular2_grid_detail_1 = require("wijmo/wijmo.angular2.grid.detail");
+// FlexGrid row details component.
+var GridRowDetailsCmp = /** @class */ (function (_super) {
+    __extends(GridRowDetailsCmp, _super);
+    function GridRowDetailsCmp(dataSvc) {
+        var _this = _super.call(this, dataSvc) || this;
+        _this._productsCache = {};
+        _this.detailMode = wjcGridDetail.DetailVisibilityMode[wjcGridDetail.DetailVisibilityMode.ExpandSingle];
+        _this.categories = new wjcCore.CollectionView();
+        _this.products = new wjcCore.CollectionView();
+        _this.getData(_this.categories, 'Categories');
+        _this.getData(_this.products, 'Products');
+        return _this;
+    }
+    GridRowDetailsCmp.prototype.ngAfterViewInit = function () {
+        if (this.flex1) {
+            this._initDetailProvider(this.flex1);
+        }
+    };
+    GridRowDetailsCmp.prototype._initDetailProvider = function (grid) {
+        var _this = this;
+        var dp = new wjcGridDetail.FlexGridDetailProvider(grid);
+        dp.maxHeight = 250;
+        // create detail cells for a given row
+        dp.createDetailCell = function (row) {
+            var cell = document.createElement('div');
+            grid.hostElement.appendChild(cell);
+            var detailGrid = new wjcGrid.FlexGrid(cell, {
+                headersVisibility: wjcGrid.HeadersVisibility.Column,
+                autoGenerateColumns: false,
+                itemsSource: _this.getProducts(row.dataItem.CategoryID),
+                columns: [
+                    { header: 'ID', binding: 'ProductID' },
+                    { header: 'Name', binding: 'ProductName' },
+                    { header: 'Qty/Unit', binding: 'QuantityPerUnit' },
+                    { header: 'Unit Price', binding: 'UnitPrice' },
+                    { header: 'Discontinued', binding: 'Discontinued' }
+                ]
+            });
+            cell.parentElement.removeChild(cell);
+            return cell;
+        };
+        // remove details from items with odd CategoryID
+        dp.rowHasDetail = function (row) {
+            return row.dataItem.CategoryID % 2 == 0;
+        };
+    };
+    // function to fill a CollectionView with data from an OData source
+    GridRowDetailsCmp.prototype.getData = function (view, url) {
+        var _this = this;
+        // build request url
+        var serviceBase = 'http://services.odata.org/Northwind/Northwind.svc/';
+        url = serviceBase + url;
+        url += (url.indexOf('?') < 0) ? '?' : '&' + '$format=json';
+        // TBD: achieve this via Ng2 http
+        // submit request
+        //this._http.get(url).subscribe((res: Response) => {
+        //this._http.get(url).map((res: Response) => res.json()).subscribe(something => {
+        //this._http.get(url).subscribe(something => {
+        $.getJSON(url, null, function (data) {
+            // handle this batch
+            var items = data.value;
+            for (var i = 0; i < items.length; i++) {
+                view.sourceCollection.push(items[i]);
+            }
+            // and go fetch more...
+            var next = data['odata.nextLink'];
+            if (next) {
+                _this.getData(view, next);
+            }
+        });
+    };
+    GridRowDetailsCmp.prototype.getProducts = function (categoryID) {
+        var view = this._productsCache[categoryID];
+        if (!view) {
+            view = new wjcCore.CollectionView(this.products.sourceCollection);
+            view.filter = function (item) {
+                return item.CategoryID == categoryID;
+            };
+            this._productsCache[categoryID] = view;
+        }
+        return view;
+    };
+    __decorate([
+        core_1.ViewChild('flex1')
+    ], GridRowDetailsCmp.prototype, "flex1", void 0);
+    GridRowDetailsCmp = __decorate([
+        core_1.Component({
+            selector: 'grid-row-details-cmp',
+            templateUrl: 'src/components/grid/gridRowDetailsCmp.html'
+        }),
+        __param(0, core_1.Inject(DataSvc_1.DataSvc))
+    ], GridRowDetailsCmp);
+    return GridRowDetailsCmp;
+}(GridBaseCmp_1.GridBaseCmp));
+exports.GridRowDetailsCmp = GridRowDetailsCmp;
+var routing = router_1.RouterModule.forChild([
+    { path: '', component: GridRowDetailsCmp }
+]);
+var GridRowDetailsModule = /** @class */ (function () {
+    function GridRowDetailsModule() {
+    }
+    GridRowDetailsModule = __decorate([
+        core_1.NgModule({
+            imports: [common_1.CommonModule, forms_1.FormsModule, routing, http_1.HttpModule, wijmo_angular2_grid_1.WjGridModule, wijmo_angular2_input_1.WjInputModule, wijmo_angular2_grid_detail_1.WjGridDetailModule],
+            declarations: [GridRowDetailsCmp],
+        })
+    ], GridRowDetailsModule);
+    return GridRowDetailsModule;
+}());
+exports.GridRowDetailsModule = GridRowDetailsModule;
+//# sourceMappingURL=GridRowDetailsCmp.js.map

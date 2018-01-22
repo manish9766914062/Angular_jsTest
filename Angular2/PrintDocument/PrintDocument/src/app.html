@@ -1,0 +1,53 @@
+﻿<div class="container">
+
+    <h1>
+        PrintDocument Class
+    </h1>
+    <div id="titleDiv" style="font-family:Arial;color:navy">
+        <p>
+            The <b>PrintDocument</b> class makes it easy to create documents for printing or
+            exporting to PDF. Most browsers allow you to select the paper size, orientation,
+            margins, and whether to include page headers and footers.
+        </p>
+    </div>
+
+    <p>
+        Here is a table with some radial gauges. The table will be included in the <b>PrintDocument</b>.
+    </p>
+    <table id="gaugeDiv">
+        <tr>
+            <td>
+                <wj-radial-gauge [min]="0" [max]="100" [value]="20"></wj-radial-gauge>
+            </td>
+            <td>
+                <wj-radial-gauge [min]="0" [max]="100" [value]="80"></wj-radial-gauge>
+            </td>
+        </tr>
+    </table>
+
+    <p>
+        Here is a <b>FlexGrid</b> control. Printing it directly would show the scrollbars and the
+        part of the content that is visible. The <b>PrintDocument</b> class allows us to replace
+        that with a printer-friendly version of the grid.
+    </p>
+    <p>
+        The <b>FlexGrid</b> allows you to group, sort, and filter the data. When used with the
+        <b>PrintDocument</b> class, it can be used to create simple ad-hoc reporting solutions.
+    </p>
+    <label>
+        <input type="checkbox" [(ngModel)]="groupData" />
+        Group by Country
+    </label>
+    <wj-flex-grid #flex
+                  [showMarquee]="true"
+                  [itemsSource]="view">
+        <wj-flex-grid-filter></wj-flex-grid-filter>
+        <wj-flex-grid-column header="Country" binding="country" [dataMap]="dataMap"></wj-flex-grid-column>
+        <wj-flex-grid-column header="Date" binding="date"></wj-flex-grid-column>
+        <wj-flex-grid-column header="Revenue" binding="amount" format="c" aggregate="Sum"></wj-flex-grid-column>
+        <wj-flex-grid-column header="Active" binding="active" aggregate="Sum"></wj-flex-grid-column>
+        <wj-flex-grid-column header="Discount" binding="discount" format="p0" aggregate="Avg"></wj-flex-grid-column>
+    </wj-flex-grid>
+    <button class="btn btn-default" (click)="printDocument(flex)">Print with PrintDocument</button>
+    <button class="btn btn-default" (click)="printWindow(flex)">Print directly</button>
+</div>

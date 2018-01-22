@@ -1,0 +1,620 @@
+﻿<div class="mdl-layout mdl-js-layout">
+
+    <header class="mdl-layout__header mdl-layout__header--waterfall">
+        <div class="mdl-layout__header-row">
+            <img src="https://grapecitycontentcdn.azureedge.net/gcbrand/samples/wijmo/wijmo-logo.png" alt="Wijmo" />
+            <span class="mdl-layout-title">
+                Olap Server 101
+            </span>
+        </div>
+    </header>
+
+    <main class="mdl-layout__content">
+        <div class="container">
+
+            <h3>
+                Introducing wijmo.olap Server
+            </h3>
+            <p>
+                The <b>wijmo.olap</b> module contains controls that allow you to add
+                Excel-like pivot table and pivot chart features to your JavaScript
+                applications.
+                Follow these steps to add wijmo.olap to your applications:
+            </p>
+            <ol>
+                <li>
+                    Add a <b>PivotPanel</b> control.
+                </li>
+                <li>
+                    Add one or more <b>PivotGrid</b> and <b>PivotChart</b> controls to the page,
+                    and connect them to the <b>PivotPanel</b> by setting their <b>itemsSource</b>
+                    property to the <b>PivotPanel</b> control.
+                </li>
+                <li>
+                    Set the PivotPanel's <b>itemsSource</b> property to an array containing the
+                    raw data that you want to analyze, or to a string containing the URL of a
+                    data service based on our
+                    <a href="http://www.componentone.com/Studio/Utilities/WebAPI">WebAPI</a>.
+                    Using data services is the recommended way to work with large data sets
+                    because it offloads all analysis work to the server, eliminating the need
+                    to download massive amounts of data.
+                    See this sample's <a href="readme.txt" target="_blank">readme file</a>
+                    for details.
+                </li>
+                <li>
+                    (Optional) Add the code to print, export, save and load views, and to view the definitions.
+                </li>
+            </ol>
+            <p>
+                On doing this, a list of available fields will show in the <b>PivotPanel</b>, and
+                users will be able to drag fields between summary areas to generate data summaries
+                (also known as "views").
+                Users can also configure the fields by setting their headers, summary functions,
+                filters, and formats.
+            </p>
+            <p>
+                Users can analyze the data and print the results, export them to XLSX or PDF,
+                and save the view definitions to be re-used later.
+            </p>
+            <p>
+                Here is a simple example:
+            </p>
+
+            <h4>
+                Add a PivotPanel and a PivotGrid to the page
+            </h4>
+            <p>
+                The <b>PivotPanel</b> control is similar to Microsoft Excel's "field list" window
+                that is associated with pivot tables and charts.
+            </p>
+            <ol>
+                <li>
+                    Add fields to the view by dragging or using checkboxes.
+                </li>
+                <li>
+                    Remove fields from the view by dragging them back to the top area, or by using their
+                    context menu.
+                </li>
+                <li>
+                    Configure the fields by using their context menu. You can modify their header, summary function,
+                    and format. Note that the format is used while grouping the data. You can, therefore, group the data
+                    by day, month, quarter or year by changing the format of the date fields for instance.
+                </li>
+            </ol>
+
+            <p>
+                The <b>PivotGrid</b> control extends the <b>FlexGrid</b> control to support pivoting features. These
+                include custom cell merging, hierarchical row and column groups, and a custom
+                context menu, which allows users to configure the pivot fields and to drill-down
+                into the data items that were used in the computation of specific summary cells.
+            </p>
+
+            <div class="mdl-grid" id="theView">
+                <div class="mdl-cell mdl-cell--4-col">
+                    <wj-pivot-panel #thePanel
+                                    [itemsSource]="rawData">
+                    </wj-pivot-panel>
+                </div>
+                <div class="mdl-cell mdl-cell--8-col">
+                    <wj-pivot-grid #pivotGrid
+                                   [itemsSource]="thePanel"
+                                   [showSelectedHeaders]="'All'">
+                    </wj-pivot-grid>
+                </div>
+                <div id="collapseButtons">
+                    Collapse rows/columns to level:
+                    <button id="b0" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" (click)="collapse(0)">0</button>
+                    <button id="b1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" (click)="collapse(1)">1</button>
+                    <button id="b2" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" (click)="collapse(2)">2</button>
+                </div>
+            </div>
+
+            <div class="source-card mdl-card mdl-shadow--2dp">
+                <app-tab>
+                    <app-tab-pane title="HTML">
+                        <div ng-non-bindable class="pane-content">
+&lt;div class="mdl-grid" id="theView"&gt;
+  &lt;div class="mdl-cell mdl-cell--4-col"&gt;
+      &lt;wj-pivot-panel
+          #thePanel
+          [itemsSource]="rawData"&gt;
+      &lt;/wj-pivot-panel&gt;
+  &lt;/div&gt;
+  &lt;div class="mdl-cell mdl-cell--8-col"&gt;
+      &lt;wj-pivot-grid
+          #pivotGrid
+         [itemsSource]="thePanel"
+         [showSelectedHeaders]="'All'"&gt;
+      &lt;/wj-pivot-grid&gt;
+  &lt;/div&gt;
+  &lt;div id="collapseButtons"&gt;
+    Collapse rows/columns to level:
+      &lt;button id="b0" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" (click)="collapse(0)"&gt;0 &lt;/button&gt;
+      &lt;button id="b1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" (click)="collapse(1)"&gt;1 &lt;/button&gt;
+      &lt;button id="b2" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" (click)="collapse(2)"&gt;2 &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+                        </div>
+                    </app-tab-pane>
+                    <app-tab-pane title="TS">
+                        <div class="pane-content">
+export class AppCmp implements AfterViewInit  &#123;
+    rawData:any;
+    constructor( @Inject(DataSvc) dataSvc: DataSvc) &#123;
+        this.rawData = this.dataSets[0].value;
+      }
+    ngAfterViewInit()  &#123;  
+        var ng = this.thePanel.engine;
+
+        ng.rowFields.push('Product', 'Country');
+        ng.valueFields.push('Sales', 'Downloads');
+        ng.showRowTotals = wjcOlap.ShowTotals.Subtotals;
+        ng.showColumnTotals = wjcOlap.ShowTotals.Subtotals;
+    }
+}
+                        </div>
+                    </app-tab-pane>
+                    <app-tab-pane title="X" >
+                          </app-tab-pane>
+                </app-tab>
+
+            </div>
+
+            <p>
+                Use the <b>viewDefinition</b> property to save and restore view definitions. For example:
+            </p>
+
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect"
+                    (click)="saveView()">
+                Save View
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect"
+                    (click)="loadView()">
+                Load View
+            </button>
+
+            <p></p>
+            <p>
+                Or build a list of pre-defined views for the user to pick from. For example:
+            </p>
+            <ul>
+                <li *ngFor="let view of viewDefs">
+                    <a href="#theView" index="$index" (click)="loadView(view.def)">
+                        {{ view.name }}
+                    </a>
+                </li>
+            </ul>
+
+            <div class="source-card mdl-card mdl-shadow--2dp">
+                <app-tab>
+                    <app-tab-pane title="HTML">
+                        <div ng-non-bindable class="pane-content">
+&lt;button
+    class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect"
+    (click)="saveView()"&gt;
+    Save View
+&lt;/button&gt;
+&lt;button
+    class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect"
+    (click)="loadView()"&gt;
+    Load View
+&lt;/button&gt;
+
+&lt;ul&gt;
+&lt;li ng-repeat="view in viewDefs"&gt;
+    &lt;a href="#theView" index="$index" (click)="loadView(view.def)"&gt;
+       &#123;&#8203;&#123; view.name }}
+    &lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+                        </div>
+                    </app-tab-pane>
+                    <app-tab-pane title="TS">
+                        <div class="pane-content">
+ // save/restore view definitions
+ saveView() &#123;  
+     var ng = this.thePanel.engine;
+     if (ng.isViewDefined) &#123;  
+         localStorage.viewDefinition = ng.viewDefinition;
+     }
+ }
+ loadView(def: string) &#123;  
+     var ng = this.thePanel.engine;
+     if (def) &#123;  
+         // load pre-defined view (against specific dataset)
+         ng.viewDefinition = def;
+     } else &#123;  
+         // load view from localStorage (whatever the user saved)
+         ng.viewDefinition = localStorage.viewDefinition;
+     }
+ }
+                        </div>
+                    </app-tab-pane>
+                    <app-tab-pane title="X" [ngClass]="active">
+                    </app-tab-pane>
+                </app-tab>
+
+            </div>
+
+            <h4>
+                Configure the PivotPanel properties
+            </h4>
+            <p>
+                The <b>PivotPanel</b> control has properties that allow you to customize
+                the view. Use the controls below to modify the value of some properties
+                and see their effect:
+            </p>
+            <dl class="dl-horizontal">
+                <dt>Dataset</dt>
+                <dd>
+                    <wj-combo-box [itemsSource]="dataSets"
+                                  [displayMemberPath]="'name'"
+                                  [headerPath]="'name'"
+                                  [selectedValuePath]="'value'"
+                                  [(selectedValue)]="rawData"
+                                  (formatItem)="formatCmbItem($event)">
+                    </wj-combo-box>
+                </dd>
+                <dt>Row totals</dt>
+                <dd>
+                    <wj-combo-box [itemsSource]="showTotals"
+                                  [displayMemberPath]="'name'"
+                                  [selectedValuePath]="'value'"
+                                  [(selectedValue)]="thePanel.engine.showRowTotals">
+                    </wj-combo-box>
+                </dd>
+                <dt>Column totals</dt>
+                <dd>
+                    <wj-combo-box [itemsSource]="showTotals"
+                                  [displayMemberPath]="'name'"
+                                  [selectedValuePath]="'value'"
+                                   [(selectedValue)]="thePanel.engine.showColumnTotals">
+                    </wj-combo-box>
+                </dd>
+                <dt>Show Zeros</dt>
+                <dd>
+                    <input [(ngModel)]="thePanel.engine.showZeros" type="checkbox" />
+                </dd>
+                <dt>Totals Before Data</dt>
+                <dd>
+                    <input [(ngModel)]="thePanel.engine.totalsBeforeData" type="checkbox" />
+                </dd>
+            </dl>
+
+            <div class="source-card mdl-card mdl-shadow--2dp">
+                <app-tab>
+                    <app-tab-pane title="HTML">
+                        <div ng-non-bindable class="pane-content">
+&lt;dl class="dl-horizontal"&gt;
+&lt;dt&gt;Dataset&lt;/dt&gt;
+&lt;dd&gt;
+    &lt;wj-combo-box 
+        [itemsSource]="dataSets"
+        [displayMemberPath]="'name'"
+        [selectedValuePath]="'value'"
+        [(selectedValue)]="rawData"&gt;
+    &lt;/wj-combo-box&gt;
+&lt;/dd&gt;
+&lt;dt&gt;Row totals&lt;/dt&gt;
+&lt;dd&gt;
+    &lt;wj-combo-box 
+        [itemsSource]="showTotals"
+        [displayMemberPath]="'name'"
+        [selectedValuePath]="'value'"
+        [(selectedValue)]="thePanel.engine.showRowTotals"&gt;
+    &lt;/wj-combo-box&gt;
+&lt;/dd&gt;
+&lt;dt&gt;Column totals&lt;/dt&gt;
+&lt;dd&gt;
+    &lt;wj-combo-box 
+        [itemsSource]="showTotals"
+        [displayMemberPath]="'name'"
+        [selectedValuePath]="'value'"
+        [(selectedValue)]="thePanel.engine.showColumnTotals"&gt;
+    &lt;/wj-combo-box&gt;
+&lt;/dd&gt;
+&lt;dt&gt;Show Zeros&lt;/dt&gt;
+&lt;dd&gt;
+    &lt;input [(ngModel)]="thePanel.engine.showZeros" type="checkbox" /&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+                        </div>
+                    </app-tab-pane>
+                    <app-tab-pane title="TS">
+                        <div class="pane-content">
+// no code required!
+                        </div>
+                    </app-tab-pane>
+                    <app-tab-pane title="X" [ngClass]="active">
+                    </app-tab-pane>
+                </app-tab>
+            </div>
+
+            <h4>
+                Show the results in a PivotChart
+            </h4>
+            <p>
+                The <b>PivotChart</b> control provides a graphical visualization of the results.
+                It is similar to Excel's pivot charts, including support for multiple chart
+                types and hierarchical axes.
+            </p>
+            <p>
+                To use the <b>PivotChart</b> control, connect it to a <b>PivotPanel</b> using
+                the <b>itemsSource</b> property:
+            </p>
+
+            <div [ngStyle]="{display: thePanel.isViewDefined ? 'none' : ''}">
+                <p>
+                    Please create a view in order to see the chart.
+                </p>
+            </div>
+            <div [ngStyle]="{display: thePanel.isViewDefined ? '' : 'none'}">
+                <dl class="dl-horizontal">
+                    <dt>Chart Type</dt>
+                    <dd>
+                        <wj-combo-box [itemsSource]="chartTypes"
+                                      [displayMemberPath]="'name'"
+                                      [selectedValuePath]="'value'"
+                                       [(selectedValue)]="theChart.chartType">
+                        </wj-combo-box>
+                    </dd>
+                    <dt>Show Legend</dt>
+                    <dd>
+                        <wj-combo-box [itemsSource]="legendVisibility"
+                                      [displayMemberPath]="'name'"
+                                      [selectedValuePath]="'value'"
+                                      [(selectedValue)]="theChart.showLegend">
+                        </wj-combo-box>
+                    </dd>
+                    <dt>Show Title</dt>
+                    <dd>
+                        <input type="checkbox" checked="checked" [(ngModel)]="theChart.showTitle">
+                    </dd>
+                </dl>
+                <wj-pivot-chart #theChart
+                                [itemsSource]="thePanel">
+                </wj-pivot-chart>
+            </div>
+
+            <div class="source-card mdl-card mdl-shadow--2dp">
+                <app-tab>
+                    <app-tab-pane title="HTML">
+                        <div ng-non-bindable class="pane-content">
+&lt;div [ngStyle]="&#123;display: thePanel.isViewDefined ? '' : 'none'}"&gt;
+    &lt;dl class="dl-horizontal"&gt;
+        &lt;dt&gt;Chart Type&lt;/dt&gt;
+        &lt;dd&gt;
+            &lt;wj-combo-box
+               [itemsSource]="chartTypes"
+               [displayMemberPath]="'name'"
+               [selectedValuePath]="'value'"
+              [(selectedValue)]="theChart.chartType"&gt;
+            &lt;/wj-combo-box&gt;
+        &lt;/dd&gt;
+    &lt;/dl&gt;
+    &lt;wj-pivot-chart
+             #theChart
+             [itemsSource]="thePanel"&gt;
+    &lt;/wj-pivot-chart&gt;
+&lt;/div&gt;
+&lt;div [ngStyle]="&#123;display: thePanel.isViewDefined ? 'none' : ''}"&gt;
+    &lt;p&gt;
+        Please create a view in order to see the chart.&lt;/p&gt;
+&lt;/div&gt;
+                        </div>
+                    </app-tab-pane>
+                    <app-tab-pane title="TS">
+                        <div class="pane-content">
+// no code required!
+                        </div>
+                    </app-tab-pane>
+                    <app-tab-pane title="X" [ngClass]="active">
+                    </app-tab-pane>
+                </app-tab>
+            </div>
+
+            <h4>
+                View and edit the source data
+            </h4>
+            <p id="serverData" [ngStyle]="{display:isServer? '' : 'none'}">
+                Raw data is not available because the PivotEngine is connected to a server.
+            </p>
+            <div id="clientData" [ngStyle]="{display:isServer? 'none' : ''}">
+                <p>
+      
+                </p>
+                <wj-flex-grid style="border:none"
+                              #rawGrid
+                              [itemsSource]="isServer? null:rawData"
+                              [isReadOnly]="rawData.tableName != null"
+                              [showSelectedHeaders]="'All'">
+                    <wj-flex-grid-filter></wj-flex-grid-filter>
+                </wj-flex-grid>
+            </div>
+            <div class="source-card mdl-card mdl-shadow--2dp">
+                <app-tab>
+                    <app-tab-pane title="HTML">
+                        <div ng-non-bindable class="pane-content">
+&lt;wj-flex-grid 
+    style="border:none"
+    #rawGrid
+    [itemsSource]="rawData"
+    [isReadOnly]="rawData.tableName != null"
+    [showSelectedHeaders]="'All'"&gt;
+    &lt;wj-flex-grid-filter&gt;&lt;/wj-flex-grid-filter&gt;
+&lt;/wj-flex-grid&gt;
+                        </div>
+                    </app-tab-pane>
+                    <app-tab-pane title="TS">
+                        <div class="pane-content">
+// no code required!
+                        </div>
+                    </app-tab-pane>
+                    <app-tab-pane title="X" [ngClass]="active">
+                    </app-tab-pane>
+                </app-tab>
+            </div>
+
+            <h4>
+                Export the results to Excel
+            </h4>
+            <p>
+                The <b>PivotGrid</b> control extends the <b>FlexGrid</b>, so you can export it to any of
+                the formats supported by the extension modules provided with the <b>FlexGrid</b>. The
+                list of supported formats includes XLSLX, CSV, and PDF.
+            </p>
+            <p>
+                For example, the button below creates an Excel file with three sheets: the current view,
+                a transposed version of the current view, and the raw data:
+            </p>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect"
+                    (click)="export()">
+                Export to XLSX
+            </button>
+
+            <div class="source-card mdl-card mdl-shadow--2dp">
+                <app-tab>
+                    <app-tab-pane title="HTML">
+                        <div ng-non-bindable class="pane-content">
+&lt;button
+    class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect"
+     (click)="export()"&gt;
+    Export to XLSX
+&lt;/button&gt;
+                
+                        </div>
+                    </app-tab-pane>
+                    <app-tab-pane title="TS">
+                        <div class="pane-content">
+    // export pivot table and raw data to Excel
+    export() &#123;
+        var ng = this.thePanel.engine;
+
+        // create book with current view
+        var book = wjcGridXlsx.FlexGridXlsxConverter.save(this.pivotGrid, &#123;
+            includeColumnHeaders: true,
+            includeRowHeaders: true
+        });
+        book.sheets[0].name = 'Main View';
+        this.addTitleCell(book.sheets[0], this.getViewTitle(ng));
+
+        // add sheet with transposed view
+        this.transposeView(ng);
+        var transposed = wjcGridXlsx.FlexGridXlsxConverter.save(this.pivotGrid, &#123;
+            includeColumnHeaders: true,
+            includeRowHeaders: true
+        });
+        transposed.sheets[0].name = 'Transposed View';
+        this.addTitleCell(transposed.sheets[0], this.getViewTitle(ng));
+        book.sheets.push(transposed.sheets[0]);
+        this.transposeView(ng);
+
+        // add sheet with raw data (unless there's too much data)
+        if (this.rawGrid.rows.length < 20000) &#123;
+            var raw = wjcGridXlsx.FlexGridXlsxConverter.save(this.rawGrid, &#123;
+                includeColumnHeaders: true,
+                includeRowHeaders: false
+            });
+            raw.sheets[0].name = 'Raw Data';
+            book.sheets.push(raw.sheets[0]);
+        }
+
+        // save the book
+        book.save('wijmo.olap.xlsx');
+    }
+                        </div>
+                    </app-tab-pane>
+                    <app-tab-pane title="X" [ngClass]="active">
+                    </app-tab-pane>
+                </app-tab>
+            </div>
+
+            <h4>
+                Customize the PivotGrid cells
+            </h4>
+            <p>
+                The <b>PivotGrid</b> control extends the <b>FlexGrid</b>, so you can customize the display
+                of the grid cells using the <b>formatItem</b> event and modifying the content of each
+                cell with complete flexibility.
+            </p>
+            <p>
+                For example, the <b>PivotGrid</b> below uses colors and icons similar to the ones in Excel's
+                icon sets to show how sales changed from quarter to quarter:
+            </p>
+
+            <wj-pivot-grid #ctmGrid
+                           [itemsSource]="ngFmt"
+                           (formatItem)="formatItem(ctmGrid, $event)"
+                           [showSelectedHeaders]="'All'"
+                           style="border:none">
+            </wj-pivot-grid>
+
+            <div class="source-card mdl-card mdl-shadow--2dp">
+                <app-tab>
+                    <app-tab-pane title="HTML">
+                        <div ng-non-bindable class="pane-content">
+&lt;wj-pivot-grid 
+   #ctmGrid
+   [itemsSource]="ngFmt"
+   (formatItem)="formatItem(ctmGrid, $event)"
+   [showSelectedHeaders]="'All'"
+   style="border:none"&gt;
+&lt;/wj-pivot-grid&gt;
+                
+                        </div>
+                    </app-tab-pane>
+                    <app-tab-pane title="TS">
+                        <div class="pane-content">
+    constructor( @Inject(DataSvc) dataSvc: DataSvc) &#123;
+        this.dataSvc = dataSvc;
+
+        this.ngFmt = new wjcOlap.PivotEngine(&#123;
+            autoGenerateFields: false,
+            itemsSource: this.dataSvc.getSimpleDataSet(10000),
+            showColumnTotals: wjcOlap.ShowTotals.GrandTotals,
+            showRowTotals: wjcOlap.ShowTotals.None,
+            fields: [
+                &#123; binding: 'product', header: 'Product' },
+                &#123; binding: 'date', header: 'Date', format: 'yyyy \"Q\"q' },
+                &#123; binding: 'sales', header: 'Sales', format: 'n0' },
+                &#123; binding: 'sales', header: 'Diff', format: 'p0', showAs: wjcOlap.ShowAs.DiffRowPct }
+            ]
+        });
+
+        this.ngFmt.rowFields.push('Date');
+        this.ngFmt.columnFields.push('Product');
+        this.ngFmt.valueFields.push('Sales', 'Diff');
+    }
+    formatItem(s: wjcOlap.PivotGrid, e: wjcGrid.FormatItemEventArgs) &#123;
+        if (e.panel == s.cells && e.col % 2 == 1) &#123;
+            var value = s.getCellData(e.row, e.col, true),
+                color = '#d8b400',
+                glyph = 'circle';
+            if (value != null) &#123;
+                if (value < 0) &#123; // negative variation
+                    color = '#9f0000';
+                    glyph = 'down';
+                } else if (value > 0.05) &#123; // positive variation
+                    color = '#4c8f00';
+                    glyph = 'down';
+                }
+                e.cell.style.color = color;
+                e.cell.innerHTML += ' <span style="font-size:120%" class="wj-glyph-' + glyph + '"></span>';
+            }
+        }
+    }
+                        </div>
+                    </app-tab-pane>
+                    <app-tab-pane title="X" [ngClass]="active">
+                    </app-tab-pane>
+                </app-tab>
+            </div>
+
+            <p>
+                Notice that in this example we only have one pre-defined view, and don't need a <b>PivotPanel</b>
+                at all. Instead, the code creates a <b>PivotEngine</b> directly and uses that as the grid's
+                <b>itemsSource</b>.
+            </p>
+        </div>
+    </main>
+</div>

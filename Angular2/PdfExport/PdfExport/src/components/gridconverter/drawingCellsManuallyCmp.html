@@ -1,0 +1,96 @@
+﻿<div>
+    <div class="copy">
+		<h3>Drawing cells manually</h3>
+		<p>
+			This sample shows how to draw cells manually using the <b>formatItem</b> callback
+			function.
+		</p>
+		<div class="collapsed-content collapse">
+			<p>
+				Besides the simple cell customization, such as changing backround color, font, cell
+				value etc the <b>formatItem</b> function allows user to draw cell manually.
+			</p>
+			<p>
+				The following steps are required:
+			</p>
+			<ul>
+				<li>
+					Define the <b>formatItem</b> function within the export settings.
+				</li>
+				<li>
+					Perform custom drawing on the document canvas using PdfDocument API in that
+					function.
+				</li>
+				<li>
+					Set the <b>args.cancel</b> property to <b>true</b> to disable default content
+					drawing or set the <b>args.cancelBorders</b> property to <b>true</b> to disable
+					default borders drawing.
+				</li>
+			</ul>
+			<p>
+				To perform custom drawing the <b>formatItem</b> function argument provides the following
+				properties:
+			</p>
+			<ul>
+				<li>
+					<b>canvas</b>: Gets the <b>PdfPageArea</b> class instance that represents a canvas
+					to perform the custom painting on.
+				</li>
+				<li>
+					<b>clientRect</b>: Gets the client rectangle of the cell being rendered in canvas
+					coordinates.
+				</li>
+				<li>
+					<b>contentRect</b>: Gets the content rectangle of the cell being rendered in canvas
+					coordinates.
+				</li>
+				<li>
+					<b>cancel</b>: If true disables default drawing behavior. Default is false.
+				</li>
+				<li>
+					<b>cancelBorders</b>: If true disables default borders drawing behavior.
+					Default is false.
+				</li>
+			</ul>
+			<p>
+				In this sample the content of cells of "Country" column is drawn manually using
+				PdfDocument API.
+				The <b>drawImage</b> method is used to draw flag image at the specified position.
+				The <b>measureText</b> method is used to get the size of the text to center it vertically.
+				The <b>drawText</b> method is used to draw text at the specified position.
+				The args.<b>cancel</b> property is setted to true to cancel default cell content drawing.
+			</p>
+		</div>
+		<p>
+			<button type="button" data-toggle="collapse"
+				data-target=".collapsed-content, .btn.btn-default.btn-xs.collapse"
+				class="btn btn-default btn-xs collapse in">
+				Read more
+			</button>
+		</p>
+	</div>
+
+	<!-- Export button -->
+	<div class="row">
+		<button class="btn btn-default" id="Button1" (click)="export()">Export</button>
+	</div>
+
+	<!-- FlexGrid -->
+	<div class="row">
+		<wj-flex-grid class="grid"
+				#flexGrid
+				headersVisibility="All"
+				selectionMode="ListBox"
+				[itemsSource]="data">
+			<wj-flex-grid-column header="ID" binding="id"></wj-flex-grid-column>
+			<wj-flex-grid-column header="Country" binding="country">
+				<ng-template wjFlexGridCellTemplate [cellType]="'Cell'" let-item="item">
+					<img src="resources/{{item.country}}.png" />
+					{{item.country}}
+				</ng-template>
+			</wj-flex-grid-column>
+			<wj-flex-grid-column header="Product" binding="product"></wj-flex-grid-column>
+			<wj-flex-grid-column header="Color" binding="color"></wj-flex-grid-column>
+		</wj-flex-grid>
+	</div>
+</div>

@@ -1,0 +1,89 @@
+﻿<!--Mobile/Tablet Header-->
+<div class="navbar navbar-inverse navbar-fixed-top visible-xs visible-sm" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" (click)="navCollapsed = !navCollapsed">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+                <img src="https://grapecitycontentcdn.azureedge.net/gcbrand/samples/wijmo/wijmo-logo.png" width="25" alt="Wijmo" />
+                <span class="hidden-sm">FlexGridPdfConverter and PdfDocument Explorer for Angular 2</span>
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" [ngClass]="{in: !navCollapsed}">
+            <ul class="nav navbar-nav">
+                <li *ngFor="let item of routTree" class="dropdown">
+                    <a href="#" target="_self" class="dropdown-toggle" data-toggle="dropdown">{{ item.section }} <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+              
+                        <ng-template ngFor let-route [ngForOf]="item.routes">
+                            <li *ngIf="route.data?.caption">
+                                <a [routerLink]="route.path" 
+                                   routerLinkActive="active" 
+                                   (click)="navCollapsed = true">
+                                    {{route.data.caption}}
+                                </a>
+                            </li>
+                        </ng-template>
+                    </ul>
+                </li>
+            </ul>
+
+
+        </div>
+    </div>
+</div>
+
+<!--Desktop Header-->
+<div class="header hidden-xs hidden-sm">
+    <div class="container" style="position:relative">
+        <h1>
+            <img src="https://grapecitycontentcdn.azureedge.net/gcbrand/samples/wijmo/wijmo-logo.png" alt="Wijmo" />
+            FlexGridPdfConverter and PdfDocument Explorer for Angular 2
+        </h1>
+    </div>
+</div>
+
+<!-- Navigation menu -->
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-2">
+            <div class="panel-group hidden-xs hidden-sm" id="accordion" >
+                <div *ngFor="let item of routTree, let index = index"
+                     class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" [href]="'#' + item.section" target="_self">
+                                {{ item.section }}
+                            </a>
+                        </h4>
+                    </div>
+                    <div [id]="item.section" class="panel-collapse collapse" [ngClass]="{ in: index == 0 }">
+                        <div class="panel-body">
+                            <ul class="flatList">
+                                <ng-template ngFor let-route [ngForOf]="item.routes">
+                                    <li *ngIf="route.data?.caption">
+                                        <a [routerLink]="route.path" routerLinkActive="active">
+                                            {{route.data.caption}}
+                                        </a>
+                                    </li>
+                                </ng-template>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-10" >
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
+<br /><br /><br /><br />
+
+

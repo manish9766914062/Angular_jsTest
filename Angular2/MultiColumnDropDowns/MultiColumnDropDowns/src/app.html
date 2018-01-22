@@ -1,0 +1,70 @@
+﻿<div class="container">
+
+    <h1>
+        Multi-column DropDowns
+    </h1>
+    <p>
+        Several Wijmo controls have drop-down elements that show lists, calendars, or other editors.
+    </p>
+    <p>
+        Styling the drop-downs can be a little tricky because the drop-down elements are re-parented
+        before they are displayed, and become direct children of the document body rather than of the
+        control they belong to. This prevents standard CSS selectors based on the control to work for
+        drop-down elements.
+    </p>
+    <p>
+        The <b>dropDownCssClass</b> property makes this task easier. It adds a specified class name to
+        the drop-downs, allowing you to style them easily with CSS.
+    </p>
+    <p>
+        In this sample, we defined a "multi-column" CSS rule that uses the CSS Flexbox feature to turn
+        regular lists into multi-column lists. The same CSS is used to style several controls, including
+        a ListBox and the drop-downs used in a ComboBox, MultiSelect, and a FlexGrid.
+    </p>
+    <p>
+        Note: IE9 does not support the CSS FlexBox feature, so all drop-downs become single-column.
+    </p>
+
+    <h2>
+        Multi-column ComboBox
+    </h2>
+    <p>
+        In this case, the "multi-column" class was applied to the drop-down rather than to the control.
+        This was done using the control's <b>dropDownCssClass</b> property:
+    </p>
+    <wj-combo-box [dropDownCssClass]="'multi-column'" [itemsSource]="items">
+    </wj-combo-box>
+
+    <h2>
+        Multi-column MultiSelect
+    </h2>
+    <p>
+        The "multi-column" class was also specified using the control's <b>dropDownCssClass</b> property:
+    </p>
+    <wj-multi-select [dropDownCssClass]="'multi-column'" [itemsSource]="items">
+    </wj-multi-select>
+
+    <h2>
+        Multi-column FlexGrid
+    </h2>
+    <p>
+        The <b>FlexGrid</b> columns also have a <b>dropDownCssClass</b> property that can be used to
+        style the drop-downs used to edit values in data-mapped columns. To see the multi-column editor
+        in action, click one of the drop-down buttons in the "Fruit" column, or select a cell in that
+        column and press F4:
+    </p>
+    <wj-flex-grid [itemsSource]="data">
+        <wj-flex-grid-column binding="id" header="ID"></wj-flex-grid-column>
+        <wj-flex-grid-column binding="fruit" header="Fruit" [dataMap]="items" [dropDownCssClass]="'multi-column'"></wj-flex-grid-column>
+        <wj-flex-grid-column binding="qty" header="Qty" [dataMap]="items"></wj-flex-grid-column>
+    </wj-flex-grid>
+
+    <h2>
+        Multi-column ListBox
+    </h2>
+    <p>
+        There is no drop-down here; the "multi-column" class was added directly to the control's host element:
+    </p>
+    <wj-list-box class="multi-column" [itemsSource]="items">
+    </wj-list-box>
+</div>

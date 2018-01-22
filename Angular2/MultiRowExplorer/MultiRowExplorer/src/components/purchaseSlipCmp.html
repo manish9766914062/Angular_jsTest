@@ -1,0 +1,15 @@
+﻿<div>
+    <h2 class="title">{{fields.purchaseSlipTitle}}</h2>
+    <wj-multi-row #multiRow [itemsSource]="data" [allowAddNew]="true">
+    </wj-multi-row>
+    <wj-flex-grid #footer style="width:928px">
+    </wj-flex-grid>
+    <div class="btn-group">
+        <button class="btn btn-default" (click)="exportToExcel()">
+            {{fields.exportXlsx}}
+        </button>
+        <button class="btn btn-default" (click)="exportToPDF()">
+            {{fields.exportPDF}}
+        </button>
+    </div>
+</div>

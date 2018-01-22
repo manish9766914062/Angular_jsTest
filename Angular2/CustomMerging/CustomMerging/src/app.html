@@ -1,0 +1,20 @@
+﻿<div class="container">
+
+    <h1>
+        FlexGrid Custom Merging
+    </h1>
+    <p>
+        This sample applies custom merging to a <b>FlexGrid</b> by defining a custom <b>MergeManager</b>
+        class and assigning an instance of that class to the grid's <b>mergeManager</b> property.
+    </p>
+    <p>
+        The custom merge manager creates merged ranges that span rows and columns, which is something
+        the default merge manager does not do (it merges either rows or columns, but not both).
+    </p>
+
+    <wj-flex-grid #flexGrid 
+                  [isReadOnly]="true"
+                  (initialized)="initCustomMerge(flexGrid)"
+                  formatItem="formatItem()">
+    </wj-flex-grid>
+</div>

@@ -1,0 +1,13 @@
+﻿<div>
+    <h2 class="title">{{fields.orderDetailTitle}}</h2>
+    <wj-multi-row id="orderDetail" #multiRow [itemsSource]="data">
+    </wj-multi-row>
+    <div class="btn-group">
+        <button class="btn btn-default" (click)="exportToExcel()">
+            {{fields.exportXlsx}}
+        </button>
+        <button class="btn btn-default" (click)="exportToPDF()">
+            {{fields.exportPDF}}
+        </button>
+    </div>
+</div>

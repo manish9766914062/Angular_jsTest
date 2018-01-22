@@ -1,0 +1,35 @@
+﻿<div class="container">
+
+    <h1>Value Filter</h1>
+
+    <p>
+        This sample shows how you can create a custom value-based filter for
+        the FlexGrid control.
+    </p>
+    <p>
+        Click the filter icons on the column headers to show the filter editor.
+        The editor allows you to select the values that should be displayed on
+        the grid. You can filter on as many columns as you like.
+    </p>
+
+    <wj-flex-grid #flex [itemsSource]="data"
+                  [allowResizing]="'Both'"
+                  [allowAddNew]="true"
+                  [deferResizing]="true"
+                  (initialized)="initialized(flex)">
+        <wj-flex-grid-column [isRequired]="false" binding="id"></wj-flex-grid-column>
+        <wj-flex-grid-column [isRequired]="false" binding="name"></wj-flex-grid-column>
+        <wj-flex-grid-column [isRequired]="false" binding="date"></wj-flex-grid-column>
+        <wj-flex-grid-column [isRequired]="false" binding="country"></wj-flex-grid-column>
+        <wj-flex-grid-column [isRequired]="false" binding="countryMapped" dataMap="countryMap"></wj-flex-grid-column>
+        <wj-flex-grid-column [isRequired]="false" binding="downloads"></wj-flex-grid-column>
+        <wj-flex-grid-column [isRequired]="false" binding="sales"></wj-flex-grid-column>
+        <wj-flex-grid-column [isRequired]="false" binding="expenses"></wj-flex-grid-column>
+        <wj-flex-grid-column [isRequired]="false" binding="checked"></wj-flex-grid-column>
+    </wj-flex-grid>
+
+    <p>
+        Now showing {{data.items.length}} items.
+    </p>
+
+</div>

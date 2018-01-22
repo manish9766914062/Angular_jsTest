@@ -1,0 +1,72 @@
+﻿<div class="header">
+    <div class="container">
+        <img src="https://grapecitycontentcdn.azureedge.net/gcbrand/samples/wijmo/wijmo-logo.png" />
+        <h1>
+            FlexChart Group & Drill Down
+        </h1>
+        <p>
+            This page shows how to show Wijmo's FlexChart control with group data.
+        </p>
+    </div>
+</div>
+<div class="container">
+    <div class="desc">
+        <strong>Step 1)</strong>  Select how would you like to group the data:
+        <wj-menu #groupByMenu [(value)]="groupBy" header="Group by" [(text)]="groupByText" (itemClicked)="groupByMenuChanged(groupByMenu)">
+            <wj-menu-item value="country,city">Country and City</wj-menu-item>
+            <wj-menu-item value="country,date">Country and Year</wj-menu-item>
+            <wj-menu-item value="date,country">Year and Country</wj-menu-item>
+            <wj-menu-item value="country,city,date">Country , City and Year</wj-menu-item>
+            <wj-menu-item value="date,country,city">Year, Country and City</wj-menu-item>
+        </wj-menu>
+    </div>
+    <div class="desc">
+        <strong>Step 2)</strong>  Select how would you like to aggregate the data:
+        <wj-menu #aggregationMenu [(value)]="aggregation" header="Aggregate" [(text)]="aggregationText" (itemClicked)="aggregationMenuChanged(aggregationMenu)">
+            <wj-menu-item value="Sum">Sum</wj-menu-item>
+            <wj-menu-item value="Cnt">Count of Non-Null</wj-menu-item>
+            <wj-menu-item value="Avg">Average</wj-menu-item>
+            <wj-menu-item value="Max">Maximum</wj-menu-item>
+            <wj-menu-item value="Min">Minimum</wj-menu-item>
+            <wj-menu-item value="Rng">Deviation</wj-menu-item>
+            <wj-menu-item value="Std">Standard Deviation</wj-menu-item>
+            <wj-menu-item value="Var">Variance</wj-menu-item>
+            <wj-menu-item value="StdPop">Population Standard Deviation</wj-menu-item>
+            <wj-menu-item value="VarPop">Population variance</wj-menu-item>
+        </wj-menu>
+    </div>
+    <div class="desc">
+        <strong>Step 3)</strong>  Select how would you like to show the data:
+        <wj-menu #chartTypeMenu [(value)]="chartType" header="Chart Type" (itemClicked)="chartTypeMenuChanged(chartTypeMenu)">
+            <wj-menu-item value="chart">Column</wj-menu-item>
+            <wj-menu-item value="pie">Pie</wj-menu-item>
+        </wj-menu>
+    </div>
+    <div class="desc">
+        <strong>Step 4)</strong>  Click a column, sector or legend to drill down into the details, or click on the header hyperlinks to return to a higher level.
+    </div>
+    <div class="chartcontainer">
+        <header><h3>
+            <a (click)="changeChartView(2)" [class.hide]="chartViewPath && chartViewPath.length < 2">{{headerAnchorLevel2}}</a>
+            <label [class.hide]="chartViewPath && chartViewPath.length < 2"> \ </label>
+            <a (click)="changeChartView(1)" [class.hide]="chartViewPath && chartViewPath.length < 1">{{headerAnchorLevel1}}</a>
+            <label [class.hide]="chartViewPath && chartViewPath.length < 1"> \ {{headTitle}}</label>
+            {{byLabel}}
+        </h3></header>
+        <wj-flex-chart #groupChart [class.hide]="chartType === 'pie'"
+                       [itemsSource]="itemsSource"
+                       selectionMode="Point"
+                       [palette]="palette"
+                       [bindingX]="bindx">
+            <wj-flex-chart-legend position="None"></wj-flex-chart-legend>
+            <wj-flex-chart-series [name]="bindname" [binding]="bindvalue"></wj-flex-chart-series>
+        </wj-flex-chart>
+        <wj-flex-pie #groupPie [class.hide]="chartType === 'chart'"
+                     [itemsSource]="itemsSource"
+                     selectionMode="Point"
+                     [binding]="bindvalue"
+                     [bindingName]="bindx">
+            <wj-flex-chart-legend position="Right"> </wj-flex-chart-legend>
+        </wj-flex-pie>
+    </div>
+</div>

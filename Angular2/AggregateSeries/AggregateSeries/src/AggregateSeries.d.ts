@@ -1,0 +1,38 @@
+import * as wjcCore from 'wijmo/wijmo';
+import * as wjcChart from 'wijmo/wijmo.chart';
+export declare class AggregateSeries extends wjcChart.Series {
+    private _autoInterval;
+    private _autoGroupIntervals;
+    private _autoMaxGroupings;
+    private _groupInterval;
+    private _groupAggregate;
+    private _allValues;
+    private _allAxisLabels;
+    private _currentInterval;
+    private _isGrouped;
+    private _rcHandlerAdded;
+    constructor();
+    autoInterval: boolean;
+    autoGroupIntervals: string[];
+    autoMaxGroupings: number;
+    groupInterval: string;
+    groupAggregate: wjcCore.Aggregate;
+    groupChanged: wjcCore.Event;
+    onGroupChanged(): void;
+    getValues(dim: number): number[];
+    _getBindingValues(index: number): any;
+    _clearValues(): void;
+    _getItem(index: number): any;
+    private _addRangeChangedHandler();
+    private _rangeChangedHandler(sender);
+    private _group();
+    private _applyGroup(key, aggregate);
+    private _selectInterval(xmin, xmax);
+    private _updateAxes(subset);
+    private _getValuesInXRange(values, propName, xmin, xmax);
+    private _getGroupDescription(bindingX, interval, subInterval?);
+    private _splitIntervalString(value);
+    private _canGroup();
+    private _isValidInterval(interval);
+    private _getFormatX(interval);
+}

@@ -1,0 +1,25 @@
+﻿<div>
+    <div class="copy">
+		<h3>Drawing tables</h3>
+		<p>
+			This sample illustrates how to draw a simple table and split table rows across pages by
+			using horizontal page breaks.
+		</p>
+		<div class="collapsed-content collapse">
+			This sample uses <b>rect</b> and <b>drawText</b> methods to draw table cells.
+			The <b>addPage</b> method is used to add a new page if a row exceeds the page bounds.
+		</div>
+		<p>
+			<button type="button" data-toggle="collapse"
+				data-target=".collapsed-content, .btn.btn-default.btn-xs.collapse"
+				class="btn btn-default btn-xs collapse in">
+				Read more
+			</button>
+		</p>
+	</div>
+
+	<!-- Export button -->
+	<div class="row">
+		<button class="btn btn-default" id="Button1" (click)="export()">Export</button>
+	</div>
+</div>

@@ -1,0 +1,47 @@
+﻿<div class="header hidden-xs hidden-sm">
+    <div class="container">
+        <img src="https://grapecitycontentcdn.azureedge.net/gcbrand/samples/wijmo/wijmo-logo.png" />
+        <h1>
+            FlexChart Editable Annotations
+        </h1>
+        <p>
+            This page shows how to display and edit annotations on FlexChart.
+        </p>
+    </div>
+</div>
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <p>
+                Following operations of editing annotations are supported in this sample.
+            </p>
+            <ul>
+                <li>
+                    You can click the button on top left of the chart to choose one of the pre-defined types and styles of annotation.
+                    Then click on chart's plot area to add and resize the annotations.
+                </li>
+                <li>You can click Data CoorDinate Button(the left-most) to choose the attachment of added annotation between Absolute and DataCoordinate.</li>
+                <li>You can add a new button to create new annotation type and style by code (The yellow triangle button is a custom button and has been added manually).</li>
+                <li>You can drag the annotations on the chart.</li>
+                <li>You can double click an annotation to edit its text.</li>
+                <li>You can delete an annotation using 'x' button.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <label id="labelIsEditable" for="checkboxIsEditable">Is Editable:</label>
+            <input type="checkbox" id="checkboxIsEditable" [(ngModel)]="isEditable" />
+        </div>
+
+    </div>
+    <wj-flex-chart #anChart 
+                   [itemsSource]="data"
+                   [chartType]="'Scatter'"
+                   [bindingX]="'x'"
+                   [tooltipContent]="'x={x}<br/>y={y}'"
+                   (rendered)="chartRendered(anChart)">
+        <wj-flex-chart-series [binding]="'y'"></wj-flex-chart-series>
+    </wj-flex-chart>
+
+</div>

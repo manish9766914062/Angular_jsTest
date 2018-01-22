@@ -1,0 +1,48 @@
+﻿    <!-- page header -->
+    <div class="header">
+        <div class="container" style="position:relative">
+            <h1>
+                <img src="https://grapecitycontentcdn.azureedge.net/gcbrand/samples/wijmo/wijmo-logo.png" alt="Wijmo 5" />
+                MultiRow Explorer
+            </h1>
+            <p>
+                A showcase for the new Wijmo 5 MultiRow.
+            </p>
+            <wj-menu [(value)]="culture" header="Culture" style="position:absolute;right:10px;bottom:10px;color:black;background-color:white">
+                <wj-menu-item value="en">English</wj-menu-item>
+                <wj-menu-item value="ja">Japanese</wj-menu-item>
+            </wj-menu>
+        </div>
+    </div>
+
+    <!-- page body -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#MultiRow" target="_self">
+                                    MultiRow
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="MultiRow">
+                            <div class="panel-body">
+                                <ul class="flat-list">
+                                    <li><a routerLink="transferSlip">{{fields?.transferSlipTitle}}</a></li>
+                                    <li><a routerLink="ordersSlip">{{fields?.ordersSlipTitle}}</a></li>
+                                    <li><a routerLink="orderDetail">{{fields?.orderDetailTitle}}</a></li>
+                                    <li><a routerLink="purchaseSlip">{{fields?.purchaseSlipTitle}}</a></li>
+                                    <li><a routerLink="orderManagement">{{fields?.orderManagementTitle}}</a></li>
+                                    <li><a routerLink="salesSlip">{{fields?.salesSlipTitle}}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10"><router-outlet></router-outlet></div>
+        </div>
+    </div>

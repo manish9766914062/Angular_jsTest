@@ -1,0 +1,77 @@
+﻿    <div class="header">
+        <div class="container" style="position:relative">
+            <h1>
+                <img src="https://grapecitycontentcdn.azureedge.net/gcbrand/samples/wijmo/wijmo-logo.png" />
+                OData Explorer
+            </h1>
+        </div>
+    </div>
+    <div class="container">
+        <p>
+            This sample shows how you can use the <b>wijmo.odata.ODataCollectionView</b>
+            class to retrieve data from arbitrary OData services.
+        </p>
+        <p>
+            The notice that the sorting and paging on the grid are performed on the server.
+            This is the default behavior for the <b>wijmo.odata.ODataCollectionView</b>.
+            You could change this behavior by setting the <b>sortOnServer</b> and
+            <b>pageOnServer</b> properties to false.
+        </p>
+
+        <div class="row">
+
+            <!-- list OData services available for browsing -->
+            <div class="col-md-2">
+                <h2>
+                    Services
+                </h2>
+                <wj-list-box style="height:400px;width:160px"
+                             [itemsSource]="services"
+                             [displayMemberPath]="'name'">
+                </wj-list-box>
+            </div>
+
+            <!-- list entities (tables) available on the selected service -->
+            <div class="col-md-2">
+                <h2>
+                    Entities
+                </h2>
+                <wj-list-box style="height:400px;width:160px"
+                             [itemsSource]="entities"
+                             [displayMemberPath]="'name'">
+                </wj-list-box>
+            </div>
+
+            <!-- show data for the selected entity (table) -->
+            <div class="col-md-8">
+                <h2>
+                    Results
+                </h2>
+                <div class="well well-lg">
+                    <div class="row">
+                        <b>Entity:</b> {{entities.currentItem?.name}}
+                        ({{data?.totalItemCount | number:'1.0-0'}} items)
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6" *ngIf="data">
+                            <wj-menu [(value)]="data.pageSize" header="Page Size">
+                                <wj-menu-item [value]="0">No Paging</wj-menu-item>
+                                <wj-menu-item [value]="5">5</wj-menu-item>
+                                <wj-menu-item [value]="10">10</wj-menu-item>
+                                <wj-menu-item [value]="20">20</wj-menu-item>
+                            </wj-menu>
+                        </div>
+                        <div class="col-md-6">
+                            <wj-collection-view-pager [cv]="data"></wj-collection-view-pager>
+                        </div>
+                    </div>
+                </div>
+                <wj-flex-grid class="grid"
+                              style="max-height:500px"
+                              [isReadOnly]="true"
+                              [itemsSource]="data">
+                </wj-flex-grid>
+            </div>
+        </div>
+    </div>

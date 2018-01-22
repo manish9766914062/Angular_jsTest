@@ -1,0 +1,55 @@
+﻿    <!-- title -->
+<div class="header">
+    <div class="container">
+        <h3>
+            <a href="#/"><img src="resources/dashboard.png" /></a>
+            Sales Dashboard
+        </h3>
+        <p class="text-info">
+            This sample shows how to create a quarterly sales dashboard
+            using sparklines and bullet charts. We use design principles
+            described in Stephen Few's book <a target="_blank"
+                                               href="http://www.amazon.com/Information-Dashboard-Design-Effective-Communication/dp/0596100167">
+                <span style="white-space: nowrap">
+                    "Information Dashboard Design: The Effective Visual Communication of Data"
+                </span>
+            </a>.
+        </p>
+        <p class="text-info text-right no-margin">
+            <span wj-tooltip="#fineprint">
+                Unit sales from {{qStart}} to {{qThis}}
+            </span>
+        </p>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- view -->
+    <router-outlet></router-outlet>
+
+    <!-- status messages -->
+    <div ng-show="loading" [ngStyle]="{display:loading ? '' : 'none'}">
+        <div class='progress progress-striped active'>
+            <div class='bar' style='width: 100%;'></div>
+        </div>
+        <p class="text-info text-center no-margin">loading...</p>
+    </div>
+    <p class="text-error" [ngStyle]="{display:error && error.length > 0 ? '' : 'none'}">
+        *** {{ error }} ***
+    </p>
+
+    <!-- fine print -->
+    <div id="fineprint" style="display:none">
+        <h3>Important Note</h3>
+        <p>
+            Data for the current quarter is estimated by pro-rating the current data.
+            The estimates grow more accurate as the end of each quarter approaches.
+        </p>
+        <p>
+            Estimates for the months of <b>January</b>, <b>April</b>, <b>July</b>,
+            and <b>October</b> are not as good as those for the months of <b>March</b>,
+            <b>June</b>, <b>September</b>, and <b>December</b>.
+        </p>
+    </div>
+</div>

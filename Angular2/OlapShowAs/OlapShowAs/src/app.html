@@ -1,0 +1,38 @@
+﻿<div class="container">
+
+    <h1>
+        raw data
+    </h1>
+    <wj-flex-grid style="max-height:250px"
+                  [itemsSource]="data"
+                  [isReadOnly]="true">
+    </wj-flex-grid>
+
+    <h1>
+        pivot panel
+    </h1>
+    <wj-pivot-panel [engine]="ng">
+    </wj-pivot-panel>
+    <p>
+        <label>
+            Totals before data
+            <input type="checkbox" [(ngModel)]="ng.totalsBeforeData">
+        </label>
+    </p>
+    <p>
+        <label>
+            Show zeros
+            <input type="checkbox" [(ngModel)]="ng.showZeros">
+        </label>
+    </p>
+
+    <h1>
+        pivot grid
+    </h1>
+    <wj-pivot-grid [itemsSource]="ng">
+    </wj-pivot-grid>
+    <p>
+        <a href="resources/ExcelTest.xlsx">Excel Version</a>
+    </p>
+
+</div>

@@ -1,0 +1,83 @@
+﻿    <!-- page header -->
+<div class="header">
+    <div class="container">
+        <h1>
+            <img src="https://grapecitycontentcdn.azureedge.net/gcbrand/samples/wijmo/wijmo-logo.png" alt="Wijmo" />
+            AggregateSeries
+        </h1>
+        <p>
+            A custom series to simplify grouping and data aggregation when using Date objects.
+        </p>
+    </div>
+</div>
+
+<!-- page body -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <i class="glyphicon glyphicon-info-sign"  wjTooltip="#aggInfo"></i>
+                    <wj-menu #aggMenu
+                             [header]="'Aggregate'"
+                             [(value)]="aggType"
+                             (itemClicked)="aggTypeChanged()">
+                        <wj-menu-item [value]="'None'">None</wj-menu-item>
+                        <wj-menu-item [value]="'Sum'">Sum</wj-menu-item>
+                        <wj-menu-item [value]="'Cnt'">Count</wj-menu-item>
+                        <wj-menu-item [value]="'Avg'">Average</wj-menu-item>
+                        <wj-menu-item [value]="'Max'">Max</wj-menu-item>
+                        <wj-menu-item [value]="'Min'">Min Explorer</wj-menu-item>
+                        <wj-menu-item [value]="'Rng'">Range</wj-menu-item>
+                        <wj-menu-item [value]="'Std'">Std</wj-menu-item>
+                        <wj-menu-item [value]="'StdPop'">StdPop</wj-menu-item>
+                        <wj-menu-item [value]="'Var'">Var</wj-menu-item>
+                        <wj-menu-item [value]="'VarPop'">VarPop</wj-menu-item>
+                    </wj-menu>
+                    <wj-menu #perMenu
+                             [header]="'Interval'"
+                             [(value)]="interval"
+                             (itemClicked)="intervalChanged()">
+                        <wj-menu-item [value]="'null'">None</wj-menu-item>
+                        <wj-menu-item [value]="'WW'">Week</wj-menu-item>
+                        <wj-menu-item [value]="'MM'">Month</wj-menu-item>
+                        <wj-menu-item [value]="'YYYY'">Year</wj-menu-item>
+                    </wj-menu>
+                    <wj-menu #ctMenu
+                             [header]="'Chart Type'"
+                             [(value)]="chartType"
+                             (itemClicked)="chartTypeChanged()">
+                        <wj-menu-item [value]="'Column'">Column</wj-menu-item>
+                        <wj-menu-item [value]="'LineSymbols'">LineSymbols</wj-menu-item>
+                        <wj-menu-item [value]="'Candlestick'">Candlestick</wj-menu-item>
+                    </wj-menu>
+                    <label>
+                        Auto Interval?&nbsp;
+                        <input type="checkbox" id="autoInterval" [(ngModel)]="autoInterval" (change)="setAutoInterval()" />
+                    </label>
+                </div>
+            <wj-flex-chart #chart
+                           style="width: 100%; height: 300px"
+                           [itemsSource]="data"
+                           [bindingX]="'date'"
+                           [tooltipContent]="customTooltip">
+            </wj-flex-chart>
+            <wj-flex-chart #selChart
+                           style="width: 100%; height: 150px"
+                           [itemsSource]="data"
+                           [bindingX]="'date'"
+                           [chartType]="'Area'">
+                <wj-flex-chart-series  [binding]="'close'"></wj-flex-chart-series>
+                <wj-flex-chart-range-selector #selector
+                                              [seamless]="true"
+                                              (rangeChanged)="rangeChanged(selector)">
+                </wj-flex-chart-range-selector>
+            </wj-flex-chart>
+        </div>
+        <!-- content for the automatic tooltips -->
+        <div style="display:none">
+            <div id="aggInfo">
+                Note that some of the Aggregate types don't make sense for financial chart types and may yield unexpected results.
+            </div>
+        </div>
+    </div>
+</div>

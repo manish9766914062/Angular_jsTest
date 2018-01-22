@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ProjectGuid>{AB844B54-2FAB-41A4-B220-05D82DA41FB8}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <OutputPath>bin</OutputPath>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <TypeScriptToolsVersion>2.5</TypeScriptToolsVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    
+    
+    
+    
+  </PropertyGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    
+    
+    <Content Include="default.htm">
+      <BrowseToURL>~/default.htm</BrowseToURL>
+    </Content>
+    <Content Include="resources\canada.png" />
+    <Content Include="resources\germany.png" />
+    <Content Include="resources\greece.png" />
+    <Content Include="resources\italy.png" />
+    <Content Include="resources\japan.png" />
+    <Content Include="resources\uk.png" />
+    <Content Include="resources\us.png" />
+    <Content Include="resources\wijmo1.png" />
+    <Content Include="resources\wijmo5.png" />
+    <Content Include="src\app.html" />
+    <Content Include="src\components\gridconverter\customCellContentCmp.html" />
+    <Content Include="src\components\gridconverter\customFontsCmp.html" />
+    <Content Include="src\components\gridconverter\customizeCellRenderingCmp.html" />
+    <Content Include="src\components\gridconverter\drawingCellsManuallyCmp.html" />
+    <Content Include="src\components\gridconverter\expenseAnalysisReportCmp.html" />
+    <Content Include="src\components\gridconverter\expenseReportCmp.html" />
+    <Content Include="src\components\gridconverter\exportToDocCmp.html" />
+    <Content Include="src\components\gridconverter\exportToFileCmp.html" />
+    <Content Include="src\components\gridconverter\highlightInvalidCellsCmp.html" />
+    <Content Include="src\components\gridconverter\introCmp.html" />
+    <Content Include="src\components\pdfdocument\customFontsCmp.html" />
+    <Content Include="src\components\pdfdocument\drawingFlexPieCmp.html" />
+    <Content Include="src\components\pdfdocument\drawingFlexPieSvgCmp.html" />
+    <Content Include="src\components\pdfdocument\drawingGraphicsCmp.html" />
+    <Content Include="src\components\pdfdocument\drawingImagesCmp.html" />
+    <Content Include="src\components\pdfdocument\drawingTablesCmp.html" />
+    <Content Include="src\components\pdfdocument\drawingTextCmp.html" />
+    <Content Include="src\components\pdfdocument\expenseReportCmp.html" />
+    <Content Include="src\components\pdfdocument\fontsCmp.html" />
+    <Content Include="src\components\pdfdocument\introCmp.html" />
+    <Content Include="src\components\pdfdocument\pageStructureCmp.html" />
+    <Content Include="src\components\pdfdocument\richTextCmp.html" />
+    <Content Include="src\components\pdfdocument\runningTitlesCmp.html" />
+    <Content Include="src\styles\app.css" />
+    <Content Include="systemjs.config.js" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="package.json" />
+    <Content Include="resources\fonts\fira\FiraSans-Bold.ttf" />
+    <Content Include="resources\fonts\fira\FiraSans-Regular.ttf" />
+    <Content Include="resources\fonts\fira\LICENSE" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  
+  <ItemGroup>
+    
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="src\app.routing.ts" />
+    <TypeScriptCompile Include="src\app.ts" />
+    <TypeScriptCompile Include="src\components\gridconverter\CustomCellContentCmp.ts" />
+    <TypeScriptCompile Include="src\components\gridconverter\CustomFontsCmp.ts" />
+    <TypeScriptCompile Include="src\components\gridconverter\CustomizeCellRenderingCmp.ts" />
+    <TypeScriptCompile Include="src\components\gridconverter\DrawingCellsManuallyCmp.ts" />
+    <TypeScriptCompile Include="src\components\gridconverter\ExpenseAnalysisReportCmp.ts" />
+    <TypeScriptCompile Include="src\components\gridconverter\ExpenseReportCmp.ts" />
+    <TypeScriptCompile Include="src\components\gridconverter\ExportToDocCmp.ts" />
+    <TypeScriptCompile Include="src\components\gridconverter\ExportToFileCmp.ts" />
+    <TypeScriptCompile Include="src\components\gridconverter\HighlightInvalidCellsCmp.ts" />
+    <TypeScriptCompile Include="src\components\gridconverter\IntroCmp.ts" />
+    <TypeScriptCompile Include="src\components\pdfdocument\CustomFontsCmp.ts" />
+    <TypeScriptCompile Include="src\components\pdfdocument\DrawingFlexPieBaseCmp.ts" />
+    <TypeScriptCompile Include="src\components\pdfdocument\DrawingFlexPieCmp.ts" />
+    <TypeScriptCompile Include="src\components\pdfdocument\drawingFlexPieSvgCmp.ts" />
+    <TypeScriptCompile Include="src\components\pdfdocument\DrawingGraphicsCmp.ts" />
+    <TypeScriptCompile Include="src\components\pdfdocument\DrawingImagesCmp.ts" />
+    <TypeScriptCompile Include="src\components\pdfdocument\DrawingTablesCmp.ts" />
+    <TypeScriptCompile Include="src\components\pdfdocument\DrawingTextCmp.ts" />
+    <TypeScriptCompile Include="src\components\pdfdocument\ExpenseReportCmp.ts" />
+    <TypeScriptCompile Include="src\components\pdfdocument\FontsCmp.ts" />
+    <TypeScriptCompile Include="src\components\pdfdocument\IntroCmp.ts" />
+    <TypeScriptCompile Include="src\components\pdfdocument\PageStructureCmp.ts" />
+    <TypeScriptCompile Include="src\components\pdfdocument\RichTextCmp.ts" />
+    <TypeScriptCompile Include="src\components\pdfdocument\RunningTitlesCmp.ts" />
+    <TypeScriptCompile Include="src\services\DataSvc.ts" />
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\WebApplications\Microsoft.WebApplication.targets')" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>4097</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:4097/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <TypeScriptRemoveComments>false</TypeScriptRemoveComments>
+    <TypeScriptSourceMap>true</TypeScriptSourceMap>
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptModuleKind>CommonJS</TypeScriptModuleKind>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>True</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>False</TypeScriptNoEmitOnError>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
+    <TypeScriptExperimentalDecorators>true</TypeScriptExperimentalDecorators>
+    <TypeScriptModuleResolution>Node</TypeScriptModuleResolution>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptSourceMap>true</TypeScriptSourceMap>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <TypeScriptRemoveComments>true</TypeScriptRemoveComments>
+    <TypeScriptSourceMap>false</TypeScriptSourceMap>
+  </PropertyGroup>
+  <PropertyGroup>
+<TypeScriptLib>dom,es2015</TypeScriptLib>
+</PropertyGroup>
+<Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+
+<ItemGroup><Content Include="styles\vendor\wijmo.min.css" /><TypeScriptCompile Include="scripts\definition\angular.d.ts" /><TypeScriptCompile Include="scripts\definition\globalize.d.ts" /><TypeScriptCompile Include="scripts\definition\jquery.d.ts" /><TypeScriptCompile Include="scripts\definition\knockout.d.ts" /></ItemGroup></Project>

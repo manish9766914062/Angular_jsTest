@@ -1,0 +1,44 @@
+﻿    <!-- page header -->
+<div class="header">
+    <div class="container">
+        <h1>
+            <img src="https://grapecitycontentcdn.azureedge.net/gcbrand/samples/wijmo/wijmo-logo.png" />
+            FlexChart Export
+        </h1>
+        <p>
+            This page shows how to export the FlexChart to an image.
+        </p>
+    </div>
+</div>
+
+<!-- page body -->
+<div class="container">
+    <div>
+        <wj-menu [header]="'Chart Type'" [(value)]="chartType">
+            <wj-menu-item [value]="'Column'">Column</wj-menu-item>
+            <wj-menu-item [value]="'Bar'">Bar</wj-menu-item>
+            <wj-menu-item [value]="'Scatter'">Scatter</wj-menu-item>
+            <wj-menu-item [value]="'Line'">Line</wj-menu-item>
+            <wj-menu-item [value]="'LineSymbols'">Line Symbols</wj-menu-item>
+            <wj-menu-item [value]="'Area'">Area</wj-menu-item>
+            <wj-menu-item [value]="'Spline'">Spline</wj-menu-item>
+            <wj-menu-item [value]="'SplineSymbols'">Spline Symbols</wj-menu-item>
+            <wj-menu-item [value]="'SplineArea'">Spline Area</wj-menu-item>
+        </wj-menu>
+
+        <wj-menu [header]="'Export To'" (itemClicked)="itemClicked(chart)" [isRequired]="false" [(value)]="exportType">
+            <wj-menu-item [value]="'png'">PNG</wj-menu-item>
+            <wj-menu-item [value]="'jpeg'">JPEG</wj-menu-item>
+            <wj-menu-item [value]="'svg'">SVG</wj-menu-item>
+        </wj-menu>
+    </div>
+    <wj-flex-chart #chart [itemsSource]="cv" [bindingX]="'name'" [chartType]="chartType">
+        <wj-flex-chart-series [binding]="'mar'"></wj-flex-chart-series>
+        <wj-flex-chart-series [binding]="'apr'"></wj-flex-chart-series>
+        <wj-flex-chart-series [binding]="'may'"></wj-flex-chart-series>
+    </wj-flex-chart>
+
+    <div style="font-size:0.75em;font-style:italic">
+        *This solution is not supported in IE9.
+    </div>
+</div>

@@ -1,0 +1,24 @@
+﻿<div class="container">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div ng-controller="RouteCtrl">
+            <a class="navbar-brand" href="#/">
+                <span class="title">NorthBreeze Wijmo</span>
+            </a>
+            <div class="btn-group">
+                <ng-template ngFor let-link [ngForOf]="routes">
+                    <a 
+                       class="btn btn-info navbar-btn"
+                       routerLinkActive="active"
+                       [routerLink]="link.path">
+                        {{link.data.caption}}
+                    </a>
+            </ng-template>
+</div>
+        </div>
+    </nav>
+    <!-- view -->
+    <div >
+        <router-outlet></router-outlet>
+    </div>
+
+</div>

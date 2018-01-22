@@ -1,0 +1,100 @@
+﻿    <!-- header -->
+<div class="header">
+    <div class="container">
+        <h1>
+            DataServices QuickStart Sample
+        </h1>
+        <p>
+            This is an HTML5 version of a classic Microsoft Silverlight sample available on
+            <a href="http://samples.msdn.microsoft.com/Silverlight/SampleBrowser/#/?sref=DataServicesQuickStart">MSDN</a>.
+            To see the original Silverlight sample, click
+            <a href="http://samples.msdn.microsoft.com/Silverlight/SampleBrowser/ClientBin/DataServicesQuickStart.html" target="_blank">here</a>.
+        </p>
+    </div>
+</div>
+
+<!-- body -->
+<div class="container">
+
+    <!-- commands/details -->
+    <dl class="col-md-6 dl-horizontal">
+        <dt></dt>
+        <dd>
+            <button type="button"
+                    class="btn btn-success"
+                    style="min-width:120px"
+                    (click)="startButton_Click()">
+                Start
+            </button>
+        </dd>
+        <dt>
+            OrderID:
+        </dt>
+        <dd>
+            <wj-combo-box [isEditable]="false"
+                          [itemsSource]="orders"
+                          [displayMemberPath]="'OrderID'">
+            </wj-combo-box>
+        </dd>
+        <dt>
+            Freight:
+        </dt>
+        <dd>
+            <wj-input-number [isRequired]="false"
+                             format="c2"
+                             [value]="orders.currentItem?.Freight">
+            </wj-input-number>
+        </dd>
+    </dl>
+
+    <dl class="col-md-6 dl-horizontal">
+        <dt>
+            Customer:
+        </dt>
+        <dd>
+            <wj-combo-box [isEditable]="false"
+                          [itemsSource]="customers"
+                          [displayMemberPath]="'CompanyName'">
+            </wj-combo-box>
+        </dd>
+        <dt>
+            Order Date:
+        </dt>
+        <dd>
+            <wj-input-date [isRequired]="false"
+                           [value]="orders.currentItem?.OrderDate">
+            </wj-input-date>
+        </dd>
+        <dt>
+            Shipped Date:
+        </dt>
+        <dd>
+            <wj-input-date [isRequired]="false"
+                           [value]="orders.currentItem?.ShippedDate">
+            </wj-input-date>
+        </dd>
+    </dl>
+
+    <!-- grid with details for the currently selected order -->
+    <wj-flex-grid style="max-height:300px;margin-bottom:20px"
+                  headersVisibility="Column"
+                  selectionMode="Row"
+                  [itemsSource]="details">
+        <wj-flex-grid-column binding="ProductID" header="Product ID" width="80*"></wj-flex-grid-column>
+        <wj-flex-grid-column binding="Quantity" header="Quantity" width="60*"></wj-flex-grid-column>
+        <wj-flex-grid-column binding="Discount" header="Discount" width="60*" format="p0"></wj-flex-grid-column>
+        <wj-flex-grid-column binding="UnitPrice" header="Cost Per Unit" width="60*" format="c2"></wj-flex-grid-column>
+    </wj-flex-grid>
+
+    <!-- monitor query resources -->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Query resources
+        </div>
+        <div style="font-size:75%;" class="panel-body">
+            <div class="text-muted" *ngFor="let qh of queryResources; let i = index">
+                ({{i}}) {{qh.table}}: <a href="{{qh.url}}">{{qh.url}}</a>
+            </div>
+        </div>
+    </div>
+</div>

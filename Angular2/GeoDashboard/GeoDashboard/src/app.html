@@ -1,0 +1,218 @@
+﻿<div class="header" >
+    <div class="container" *ngIf="location">
+        <div class="pull-left"
+             style="white-space: nowrap"
+             title="Drag the map to select a location and update the tiles. Click the tiles to update the map.">
+            <img src="https://grapecitycontentcdn.azureedge.net/gcbrand/samples/wijmo/wijmo-logo.png" style="float:left;margin:12px;" />
+            <h3>
+                Wijmo GeoDashboard
+            </h3>
+            <p>
+                Built with Wijmo, Esri maps, and Angular.
+            </p>
+        </div>
+        <div class="pull-right" style="margin-top:6px">
+            <div class="row pull-right">
+                <div class="col-md-12 form-inline">
+                    <input class="form-control" type="text"
+                           [(ngModel)]="search" />
+                    <button class="btn btn-default" type="button"
+                            title="Search for a location" (click)="geoCode()" [disabled]="search.length == 0">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </button>
+                    <button class="btn btn-default" type="button"
+                            title="Go to current location" (click)="gotoCurrentLocation()">
+                        <i class="glyphicon glyphicon-home"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="text-right">
+                        {{location.name}}
+                        <span style="font-size:10pt">
+                            ({{location.lat | latitude:0}}, {{location.lon | longitude:0}})
+                        </span>
+                    </h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <!-- map with cross-hairs -->
+    <esri-map [extent]="extent"
+              [tileSource]="selectedSource"
+              style="height:400px;margin:0px 12px 12px 12px;border:1px solid black;box-shadow:0 3px 25px black;">
+        <esri-crosshair color="#8f5ca6"></esri-crosshair>
+    </esri-map>
+
+    <!-- legend info for the selected source of the map -->
+    <esri-legend [source]="selectedSource"></esri-legend>
+
+    <!-- no info? -->
+    <div class="row text-center" [ngStyle]="{display:location && location.isValid? 'none':''}">
+        <div class="alert">
+            No data is available for this location.<br />
+            Please drag the map to select a mainland location within the USA.
+        </div>
+    </div>
+
+    <!-- info tiles -->
+    <div class="row">
+        <div class="col-md-11 col-md-offset-1" *ngIf="location" [ngStyle]="{display:location && location.isValid? '':'none'}">
+            <gdash-tile [header]="location.name" (click)="selectSource(sources.tapestry)">
+                The dominant tapestry<br />
+                is <b>{{sources.tapestry.values.TAPSEGNAM.value}}</b>.
+                <p class="muted" style="max-width:200px;margin-left:6px;">
+                    {{domTapDescription}}
+                </p>
+            </gdash-tile>
+
+            <gdash-tile header="Population by Sex" (click)="selectSource(sources.populationBySex)">
+                <p>Total Population: <b>{{sources.populationBySex.values.TOTPOP_CY.value | number:'1.0-0'}}</b></p>
+                <table>
+                    <tr>
+                        <td class="symbol" style="background-image:url(resources/male.png);background-position:left center">
+                            <b>{{sources.populationBySex.values.PMALE_CY.value | number:'1.1-1'}}%<br />male</b>
+                        </td>
+                        <td class="symbol" style="background-image:url(resources/female.png);background-position:right center">
+                            <b>{{sources.populationBySex.values.PFEMALE_CY.value | number:'1.1-1'}}%<br />female</b>
+                        </td>
+                    </tr>
+                </table>
+            </gdash-tile>
+
+            <gdash-tile header="Median Age" (click)="selectSource(sources.age)">
+                The median age is <b>{{sources.age.values.MEDAGE_CY.value | number:'1.1-1'}} years</b><br />
+                <wj-flex-chart class="barChart"
+                               #medianAgeChart
+                               [itemsSource]="sources.age.shortList"
+                               [chartType]="'Bar'"
+                               [bindingX]="'name'"
+                               [tooltipContent]="'{y} people <br/> are {x}'">
+                    <wj-flex-chart-axis [wjProperty]="'axisX'"
+                                        [majorTickMarks]="'None'"
+                                        [majorGrid]="true"
+                                        [axisLine]="false"
+                                        [labels]="false">
+                    </wj-flex-chart-axis>
+                    <wj-flex-chart-axis wjProperty="axisY"
+                                        [majorGrid]="false">
+                    </wj-flex-chart-axis>
+                </wj-flex-chart>
+            </gdash-tile>
+
+            <gdash-tile header="Household Income" (click)="selectSource(sources.householdIncome)">
+                The average income is <b>${{sources.householdIncome.values.MEDHINC_CY.value | number:'1.0-0'}}</b><br />
+                <wj-flex-chart class="barChart"
+                               #householdIncomeChart
+                               [itemsSource]="sources.householdIncome.shortList"
+                               chartType="Bar"
+                               bindingX="name"
+                               [tooltipContent]="'{y} households <br/> earn {x}'">
+                    <wj-flex-chart-axis wjProperty="axisX"
+                                        majorTickMarks="None"
+                                        [majorGrid]="true"
+                                        [axisLine]="false"
+                                        [labels]="false">
+                    </wj-flex-chart-axis>
+                    <wj-flex-chart-axis wjProperty="axisY"
+                                        [majorGrid]="false">
+                    </wj-flex-chart-axis>
+                </wj-flex-chart>
+            </gdash-tile>
+
+            <gdash-tile header="Median Household Net Worth" (click)="selectSource(sources.netWorth)">
+                <p>
+                    The median net worth is
+                    <b>${{sources.netWorth.values.MEDNW_CY.value | number:'1.0-0'}}</b>
+                </p>
+                <wj-radial-gauge class="radialgauge"
+                                 [value]="sources.netWorth.values.MEDNW_CY.value || 0"
+                                 showText="Value"
+                                 [max]="550000"
+                                 [startAngle]="0"
+                                 [sweepAngle]="90"
+                                 [showRanges]="false">
+                    <wj-range wjProperty="pointer" [thickness]="0.5" color="#8f5ca6"></wj-range>
+                </wj-radial-gauge>
+            </gdash-tile>
+
+            <gdash-tile header="Home Values" (click)="selectSource(sources.homeValue)">
+                <b>{{sources.homeValue.values.NAME.value}}'s</b> median home value is<br />
+                <b>${{sources.homeValue.values.MEDVAL_CY.value | number:'1.1-1'}}</b>
+                ({{getIndexDescription(sources.homeValue.values.MEDVAL_I.value)}}).<br />
+                <table>
+                    <tr>
+                        <td>Home Value Index</td>
+                        <td>
+                            <gdash-slider [value]="sources.homeValue.values.MEDVAL_I.value"
+                                          color="#8f5ca6">
+                            </gdash-slider>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Household Income Index</td>
+                        <td>
+                            <gdash-slider [value]="sources.homeValue.values.MEDHINC_I.value"
+                                          color="#8f5ca6">
+                            </gdash-slider>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Net Worth Index</td>
+                        <td>
+                            <gdash-slider [value]="sources.homeValue.values.MEDNW_I.value"
+                                          color="#8f5ca6">
+                            </gdash-slider>
+                        </td>
+                    </tr>
+                </table>
+                <wj-flex-chart class="barChart homeValueChart"
+                               #homeValueChart
+                               [itemsSource]="sources.homeValue.shortList"
+                               chartType="Bar"
+                               bindingX="name"
+                               [tooltipContent]="'{y} homes in the <br/>{x} range'">
+                    <wj-flex-chart-axis wjProperty="axisX"
+                                        majorTickMarks="None"
+                                        [majorGrid]="true"
+                                        [axisLine]="false"
+                                        [labels]="false">
+                    </wj-flex-chart-axis>
+                    <wj-flex-chart-axis wjProperty="axisY"
+                                        [majorGrid]="false">
+                    </wj-flex-chart-axis>
+                </wj-flex-chart>
+            </gdash-tile>
+
+            <gdash-tile header="Home Value Distribution" (click)="selectSource(sources.homeValue)">
+                <wj-flex-chart class="barChart homeValueDistributionChart"
+                               #homeValueDistributionChart
+                               [itemsSource]="sources.homeValue.list"
+                               chartType="Column"
+                               [tooltipContent]="'{y} homes in the <br/>{x} value range'">
+                    <wj-flex-chart-axis wjProperty="axisX"
+                                        majorTickMarks="None"
+                                        [majorGrid]="true"
+                                        [axisLine]="false"
+                                        [labels]="false">
+                    </wj-flex-chart-axis>
+                    <wj-flex-chart-axis wjProperty="axisY"
+                                        [majorGrid]="false">
+                    </wj-flex-chart-axis>
+                </wj-flex-chart>
+            </gdash-tile>
+
+            <gdash-tile header="About this app" (click)="selectSource()">
+                This application was created using<br />
+                ComponentOne's <a href="http://wijmo.com/5">Wijmo</a>,<br />
+                Esri's <a href="http://developers.arcgis.com/en/javascript/jshelp/">map widget</a>
+                and <a href="http://www.esri.com/data/free-data">data services</a>,<br />
+                and Google's <a href="http://angularjs.org/">Angular</a> framework.
+            </gdash-tile>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,48 @@
+﻿<div class="header">
+    <div class="container">
+        <img src="https://grapecitycontentcdn.azureedge.net/gcbrand/samples/wijmo/wijmo-logo.png" />
+        <h1>
+            GanttChart
+        </h1>
+        <p>
+            This page shows how to create GanttChart using FlexChart.
+        </p>
+    </div>
+</div>
+<div class="container">
+    <h2 id="Start">
+        Getting Started
+    </h2>
+    <p>
+        Steps for getting started with the FlexChart to customize a GanttChart in Angular2 applications:
+    </p>
+    <ol>
+        <li>Add references to Angular2, Wijmo, and Wijmo's Angular2 directives.</li>
+        <li>
+            Add a component to provide data and logic.<br />
+        </li>
+        <li>Add a FlexChart to the page, set chartType to Bar and bind the itemsSource to the data.</li>
+        <li>Add a FlexChartSeries to FlexChart and set its binding property to the names of the fields that contain the start and end dates for each task.</li>
+        <li>Customize AxisY to hide major grid and show minor grid.</li>
+    </ol>
+    <div class="row">
+        <wj-flex-chart [itemsSource]="data" chartType="Bar" bindingX="name" [tooltipContent]="getTooltipContent">
+            <wj-flex-chart-series binding="start,end"></wj-flex-chart-series>
+            <wj-flex-chart-axis [wjProperty]="'axisY'" [minorGrid]="true" [majorGrid]="false" [reversed]="true"></wj-flex-chart-axis>
+        </wj-flex-chart>
+    </div>
+    <!-- Dependencies and percent complete-->
+    <h2 id="Start">
+        Dependencies &amp; Percent Complete
+    </h2>
+    <p>        Customize the chart by setting its itemFormatter property
+        to a function that adds elements to show task dependencies
+        and percent complete.
+    </p>
+    <div class="row">
+        <wj-flex-chart #advChart [itemsSource]="depData" chartType="Bar" bindingX="name" (rendered)="ganttChartRendered(advChart, $event)" [itemFormatter]="ganttItemFormatter" [tooltipContent]="getTooltipContent">
+            <wj-flex-chart-series binding="start,end"></wj-flex-chart-series>
+            <wj-flex-chart-axis [wjProperty]="'axisY'" [minorGrid]="true" [majorGrid]="false" [reversed]="true"></wj-flex-chart-axis>
+        </wj-flex-chart>
+    </div>
+</div>

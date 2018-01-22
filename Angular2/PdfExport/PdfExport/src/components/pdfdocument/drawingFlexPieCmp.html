@@ -1,0 +1,35 @@
+﻿<div>
+    <div class="copy">
+		<h3>Drawing FlexPie as a raster image</h3>
+		<p>
+			This sample illustrates how to export FlexPie as a raster image using <b>drawImage</b> method.
+		</p>
+		<div class="collapsed-content collapse">
+			<p>
+				The sample uses the ability of any FlexChartBase-based control to convert itself to an
+				raster image, so the following technique is used here:
+			</p>
+
+			<ol>
+				<li>Instantiate FlexPie control.</li>
+				<li>Convert it to a raster image using the control's saveImageToDataUrl method.</li>
+				<li>Draw the image onto the document using drawImage method.</li>
+			</ol>
+		</div>
+		<p>
+			<button type="button" data-toggle="collapse"
+				data-target=".collapsed-content, .btn.btn-default.btn-xs.collapse"
+				class="btn btn-default btn-xs collapse in">
+				Read more
+			</button>
+		</p>
+	</div>
+
+	<!-- FlexPie placeholder -->
+	<div id="pie" class="hideCtrl" style="width: 500px"></div>
+
+	<!-- Export button -->
+	<div class="row">
+		<button class="btn btn-default" id="Button1" (click)="export()">Export</button>
+	</div>
+</div>

@@ -1,0 +1,89 @@
+﻿<div>
+    <div class="copy">
+		<h3>Custom cell content</h3>
+		<p>
+			This sample describes the custom cell content exporting mode.
+		</p>
+		<div class="collapsed-content collapse">
+			<p>
+				FlexGridPdfConverter has two export modes to choose from, which is defined by the
+				IFlexGridDrawSettings.<b>customCellContent</b> boolean property:
+			</p>
+			<pre>
+wijmo.grid.pdf.FlexGridPdfConverter.export(flexGrid, "FlexGrid.pdf", &#123;
+    customCellContent: true
+});</pre>
+			<p>
+				In first mode (customCellContent = false), which is the default one, the appearance
+				of the cells of the exported grid is determined by the
+				IFlexGridDrawSettings.<b>styles</b> property, and cell values are retrieved with
+				<b>FlexGrid.getCellData</b> method.
+			</p>
+			<p>
+				In second mode (customCellContent = true), the appearance and content of the cells
+				is retrieved directly from the HTML DOM. FlexGridPdfConverter obtains the element
+				which is a DOM-representation of the exported cell; element.textContent property
+				defines the cell content, and its style settings (background color, fore color,
+				border color and font) are calculated with window.getComputedStyle(element).
+			</p>
+			<p>
+				Besides the fact that in custom cell content mode the exported grid will have the
+				appearance close to original, this mode is also useful if FlexGrid contains Angular
+				cell templates. This mode has lower performance due to DOM evaluation.
+			</p>
+			<p>
+				In this sample the same grid gets exported with different value of <b>customCellContent</b>
+				property. Following differences are noticeable between the two first grids:
+			</p>
+			<ul>
+				<li>
+					Content of the cells of the "Country" column looks different because of Angular
+					cell template.
+				</li>
+				<li>
+					The grid exported using non-customCellContent mode has no styles, but the
+					second exported grid does (the IFlexGridDrawSettings.<b>styles</b> property
+					is left blank for clarity).
+				</li>
+			</ul>
+			<p>
+				The third button shows the ability to export grid with flag images using the
+				IFlexGridDrawSettings.<b>formatItem</b> callback and <b>PdfDocument</b> API. This
+				technique will be explained in detail in the next topics.
+			</p>
+		</div>
+		<p>
+			<button type="button" data-toggle="collapse"
+				data-target=".collapsed-content, .btn.btn-default.btn-xs.collapse"
+				class="btn btn-default btn-xs collapse in">
+				Read more
+			</button>
+		</p>
+	</div>
+
+	<!-- Export button -->
+	<div class="row">
+		<button class="btn btn-default" id="Button1" (click)="export()">Export (customCellContent = false)</button>
+		<button class="btn btn-default" id="Button2" (click)="export2()">Export (customCellContent = true)</button>
+		<button class="btn btn-default" id="Button3" (click)="export3()">Export (customCellContent = false + formatItem callback)</button>
+	</div>
+
+	<!-- FlexGrid -->
+	<div class="row">
+		<wj-flex-grid class="grid"
+				#flexGrid
+				headersVisibility="All"
+				selectionMode="ListBox"
+				[itemsSource]="data">
+			<wj-flex-grid-column header="ID" binding="id"></wj-flex-grid-column>
+			<wj-flex-grid-column header="Country" binding="country"	width="*">
+				<ng-template wjFlexGridCellTemplate [cellType]="'Cell'" let-item="item">
+					<img src="resources/{{item.country}}.png" />
+					{{item.country}} - {{item.capital}}
+				</ng-template>
+			</wj-flex-grid-column>
+			<wj-flex-grid-column header="Product" binding="product"></wj-flex-grid-column>
+			<wj-flex-grid-column header="Color" binding="color"></wj-flex-grid-column>
+		</wj-flex-grid>
+	</div>
+</div>

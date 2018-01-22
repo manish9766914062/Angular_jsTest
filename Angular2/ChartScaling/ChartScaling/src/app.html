@@ -1,0 +1,45 @@
+﻿<div class="container">
+
+    <h1>
+        Chart Scaling
+    </h1>
+
+    <p>
+        Use logarithmic axes to spread clustered data and improve the clarity of your
+        charts without sacrificing accuracy.
+    </p>
+    <p>
+        Use scaling formats to display axis labels in a clear and concise way.
+    </p>
+    <p>
+        The bubble chart below shows the population (x), GDP (y), and per-capita income
+        (bubble size) for about 200 countries. Notice how the use of log-axes spreads
+        out the data and makes the chart easy to read.
+    </p>
+
+    <wj-flex-chart [itemsSource]="countries"
+                   [chartType]="'Bubble'"
+                   [bindingX]="'pop'"
+                   [tooltipContent]="'<b>{country}</b>:<br/>{pci:n0} US$/year/capita'">
+
+        <wj-flex-chart-series [name]="'GDP'"
+                              [binding]="'gdp,pci'"
+                              [symbolStyle]="{ fill:'gold', stroke:'orange' }">
+        </wj-flex-chart-series>
+
+        <wj-flex-chart-axis [wjProperty]="'axisX'"
+                            [title]="'Population (millions)'"
+                            [format]="'g4,,'"
+                            [logBase]="10">
+        </wj-flex-chart-axis>
+        <wj-flex-chart-axis [wjProperty]="'axisY'"
+                            [title]="'GDP (US$ billions)'"
+                            [format]="'g4,'"
+                            [logBase]="10">
+        </wj-flex-chart-axis>
+
+        <wj-flex-chart-legend [position]="'None'">
+        </wj-flex-chart-legend>
+    </wj-flex-chart>
+
+</div>

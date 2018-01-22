@@ -1,0 +1,46 @@
+﻿<div class="container">
+    <h1>
+        Trading Information
+    </h1>
+    <p>
+        Trading information with dynamic updates.
+    </p>
+    <label>
+        Custom Cells
+        <input id="customCells" type="checkbox" checked="checked" [(ngModel)]="customCells" >
+    </label>
+    <label>
+        Auto Update
+        <input id="autoUpdate" type="checkbox" checked="checked" [(ngModel)]="autoUpdate" >
+    </label>
+    <label>
+        Update Interval (ms)
+        <wj-combo-box [itemsSource]="intervalData"
+                      [(selectedValue)]="interval">                     
+        </wj-combo-box>
+    </label>
+    <label>
+        Batch Size (#items)
+        <wj-combo-box [itemsSource]="batchSizeData"
+                      [(selectedValue)]="batchSize">
+        </wj-combo-box>
+    </label>
+
+    <wj-flex-grid #theGrid
+                  [isReadOnly]="true"
+                  [itemsSource]="data"
+                  (updatingView)="updatingView()"
+                  (formatItem)="formatItem(theGrid, $event)">
+        <wj-flex-grid-column [header]="'Name'" [binding]="'name'" [width]="220" [allowDragging]="false"></wj-flex-grid-column>
+        <wj-flex-grid-column [header]="'Bid'" [binding]="'bid'" [format]= "'n2'" [width]="220" [allowSorting]="false" ></wj-flex-grid-column>
+        <wj-flex-grid-column [header]="'Ask'" [binding]="'ask'" [format]= "'n2'" [width]="220" [allowSorting]="false" ></wj-flex-grid-column>
+        <wj-flex-grid-column [header]="'Last Sale'" [binding]="'lastSale'" [format]= "'n2'"  [allowSorting]="false" ></wj-flex-grid-column>
+        <wj-flex-grid-column [header]="'Bid Size'" [binding]="'bidSize'" [format]= "'n0'" [allowSorting]="false"></wj-flex-grid-column>
+        <wj-flex-grid-column [header]="'Ask Size'" [binding]="'askSize'" [format]="'n0'"  [allowSorting]="false"></wj-flex-grid-column>
+        <wj-flex-grid-column [header]="'Last Size'" [binding]="'lastSize'" [format]="'n0'"  [allowSorting]="false"></wj-flex-grid-column>
+        <wj-flex-grid-column [header]="'Volume'" [binding]="'volume'" [format]="'n0'"  [allowSorting]="false"></wj-flex-grid-column>
+        <wj-flex-grid-column [header]="'Quote Time'" [binding]="'quoteTime'" [format]="'hh:mm:ss'" [align]="'center'" [allowSorting]="false"></wj-flex-grid-column>
+        <wj-flex-grid-column [header]="'Trade Time'" [binding]="'tradeTime'" [format]="'hh:mm:ss'"  [align]="'center'" [allowSorting]="false"></wj-flex-grid-column>
+    </wj-flex-grid>
+
+</div>

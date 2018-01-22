@@ -1,0 +1,46 @@
+﻿<div class="container">
+
+    <h1>
+        FlexGrid Column Groups
+    </h1>
+
+    <p>
+        The grids below have hierarchical column structures where some columns
+        contain groups of columns.
+    </p>
+    <p>
+        The columns have multi-level, merged headers that reflect the structure of the data.
+        Clicking header cells selects the whole group.
+    </p>
+    <p>
+        Both examples create the headers using the <b>ColumnGroupProvider</b> class which
+        is defined in the <b>wijmo.grid.columngroups</b> extension module.
+    </p>
+
+    <h3>
+        W3C table example
+    </h3>
+    <p>
+        This example is based on the
+        <a href="http://www.w3.org/TR/html401/struct/tables.html">W3 page that describes the table element</a>.
+        It shows a simple table with a column group that shows "Average" weight and
+        height values:
+    </p>
+    <wj-flex-grid #w3Grid
+                  (initialized)="initW3C(w3Grid)">                   
+        <wj-flex-grid-filter #w3cFilter></wj-flex-grid-filter>
+    </wj-flex-grid>
+
+    <h3>
+        Financial table example
+    </h3>
+    <p>
+        This example shows a table with financial data. The data contains two column groups,
+        one showing fund performance and one showing fund composition.
+    </p>
+    <wj-flex-grid #fundGrid
+                  (initialized)="initFinancial(fundGrid)">
+        <wj-flex-grid-filter #fundFilter></wj-flex-grid-filter>
+    </wj-flex-grid>
+
+</div>

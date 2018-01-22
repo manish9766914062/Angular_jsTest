@@ -1,0 +1,7 @@
+﻿<div [style.width]="width" [style.height]="height" style="box-sizing:border-box;padding:4px">
+    <svg width="100%" height="100%" style="stroke:currentColor;stroke-width:2;opacity:.6;overflow:visible">
+        <g *ngFor="let p of lines">
+            <line [attr.x1]="p.x1" [attr.y1]="p.y1" [attr.x2]="p.x2" [attr.y2]="p.y2" />
+        </g>
+    </svg>
+</div>

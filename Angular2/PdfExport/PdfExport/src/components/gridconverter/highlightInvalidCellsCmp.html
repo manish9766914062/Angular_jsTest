@@ -1,0 +1,80 @@
+﻿<div>
+	<div class="copy">
+		<h3>Highlight invalid cells</h3>
+		<p>
+			This sample shows how to highlight invalid cells of a FlexGrid in the exported document.
+		</p>
+		<div class="collapsed-content collapse">
+		<p>
+			For the FlexGrid's invalid cells to be highlighted in the exported document the following steps should be performed:
+		</p>
+		<ol>
+			<li>Make sure that <b>FlexGrid.showErrors</b> property is turned on.</li>
+			<li>Specify the <b>errorCellStyle</b> property of the <b>styles</b> export setting. This style will be applied to each invalid cell being rendered.</li>
+		</ol>
+		<p  class="alert alert-info" role="alert">
+			Note: there is no need to specify the errorCellStyle property if <a href="#/gridconverter/customcellcontent">custom cell content</a> mode is used.
+		</p>
+		<p>
+			In this sample the following code highlights invalid cells with the pale red color:
+		</p>
+	<pre>
+wijmo.grid.pdf.FlexGridPdfConverter.export(flexGrid, 'FlexGrid.pdf', &#123;
+   styles: &#123;
+        errorCellStyle: &#123;
+            backgroundColor: 'rgba(255, 0, 0, 0.3)'
+        }
+    }
+})</pre>
+		</div>
+		<p>
+			<button type="button" data-toggle="collapse"
+				data-target=".collapsed-content, .btn.btn-default.btn-xs.collapse"
+				class="btn btn-default btn-xs collapse in">
+				Read more
+			</button>
+		</p>
+	</div>
+
+	<!-- Export settings -->
+	<div class="panel-group" id="settings">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					<a data-toggle="collapse" data-parent="#settings" href="#settingsBody" target="_self">FlexGrid Settings</a>
+				</h4>
+			</div>
+			<div id="settingsBody" class="panel-collapse collapse">
+				<div class="panel-body">
+					<ul class="list-inline">
+						<label>
+							Show Errors
+							<input type="checkbox" [(ngModel)]="showErrors" />
+						</label>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Export button -->
+	<div class="row">
+		<button class="btn btn-default" id="Button1" (click)="export()">Export</button>
+	</div>
+
+	<!-- FlexGrid -->
+	<div class="row">
+		<wj-flex-grid class="grid"
+				#flexGrid
+				selectionMode="ListBox"
+				headersVisibility="All"
+				[showErrors]="showErrors"
+				[itemsSource]="data">
+			<wj-flex-grid-column header="ID" binding="id"></wj-flex-grid-column>
+			<wj-flex-grid-column header="Country" binding="country"></wj-flex-grid-column>
+			<wj-flex-grid-column header="Product" binding="product"></wj-flex-grid-column>
+			<wj-flex-grid-column header="Amount" binding="amount" format="c"></wj-flex-grid-column>
+			<wj-flex-grid-column header="Active" binding="active"></wj-flex-grid-column>
+		</wj-flex-grid>
+	</div>
+</div>

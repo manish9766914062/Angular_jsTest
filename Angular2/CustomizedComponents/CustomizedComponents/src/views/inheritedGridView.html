@@ -1,0 +1,56 @@
+﻿<h2>Inherit from WjFlexGrid</h2>
+<p>
+    <b>IMPORTANT:</b> this example requires Angular version 2.3.1 or higher.
+</p>
+<p>
+    This sample demonstrates how to create a custom FlexGrid component by deriving it from 
+    the WjFlexGrid component. It implements the InheritedGrid component which is a customized grid 
+    with cells immediately available
+    for editing and a Select column that allows to select a single or multiple rows depending
+    on the setting specified in the "Selection type" menu. The Select column is embedded to the
+    grid, you don't need to specify it in the column list. Another columns that should be shown
+    by the grid are defined in a usual way by means of the child WjFlexGridColumn components. 
+    Cell editing can be disabled, but row selection functionality is always available.
+</p>
+<p>
+    In order to have all the Angular specific features implemented in the base WjFlexGrid component
+    in our InheritedGrid component, we have to duplicate the whole @Component decorator definition
+    of the base class in the derived class, and add definitions specific to our custom component,
+    for example add isEditable and selectionType property names to the 'inputs' array to make them
+    available for binding in templates. To simplify this task, we import the wjFlexGridMeta variable
+    from the WjFlexGrid's module. This variable contains an object that stores all the @Component 
+    metadata properties declared by WjFlexGrid. We merge this property values with the new ones 
+    specific to the InheritedGrid component. The @Component definition that we use in the derived
+    component is Angular AoT compiler compliant.
+</p>
+<p>
+    Because the Select column should be embedded in the grid, we redefine the component template
+    and include it right there using the WjFlexGridColumn component. The other element of the template
+    is ng-content which is a placeholder for arbitrary WjFlexGridColumn components defined in the
+    markup for the InheritedGrid component.
+</p>
+
+<wj-menu [header]="'Selection type'" [(value)]="selectionType">
+    <wj-menu-item [value]="SelectionTypeEnum.Single">Single</wj-menu-item>
+    <wj-menu-item [value]="SelectionTypeEnum.Multiple">Multiple</wj-menu-item>
+</wj-menu>
+<input type="checkbox" [(ngModel)]="grid.isEditable" style="margin-left:30px"/> Editable
+<br />
+<br />
+<inherited-grid #grid [itemsSource]="data" [selectionType]="selectionType" style="height:300px">
+    <wj-flex-grid-column [header]="'ID'" [binding]="'id'" [width]="70">
+    </wj-flex-grid-column>
+    <wj-flex-grid-column [binding]="'country'"
+                         [header]="'Country'">
+        <ng-template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
+            <editable-string-renderer [cell]="cell"></editable-string-renderer>
+        </ng-template>
+    </wj-flex-grid-column>
+    <wj-flex-grid-column [binding]="'date'"
+                         [header]="'Date'"
+                         [width]="150">
+        <ng-template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
+            <editable-date-renderer [cell]="cell"></editable-date-renderer>
+        </ng-template>
+    </wj-flex-grid-column>
+</inherited-grid>

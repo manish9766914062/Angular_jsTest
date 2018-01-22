@@ -1,0 +1,62 @@
+﻿<div class="header">
+    <div class="container">
+        <h1>
+            FlexGrid Drag and Drop Column Picker
+        </h1>
+    </div>
+</div>
+
+<!-- content -->
+<div class="container">
+    <p>
+        By default, the <b>FlexGrid</b> allows users to drag columns into new positions.
+        But it does not have a built-in system for selecting which columns should be
+        displayed on the grid.
+    </p>
+    <p>
+        This sample demonstrates how you can build a dialog that allows users to select
+        which columns should be displayed and in what order using drag and drop.
+    </p>
+    <p>
+        For example, the grid below shows two columns but is bound to an array of items
+        with many extra properties that are not shown:
+    </p>
+
+    <wj-flex-grid #flex
+                  [itemsSource]="data">
+        <wj-flex-grid-column [binding]="'product'" [header]="'Product'"></wj-flex-grid-column>
+        <wj-flex-grid-column [binding]="'country'" [header]="'Country'"></wj-flex-grid-column>
+        <wj-flex-grid-column [binding]="'start'" [header]="'Start'"></wj-flex-grid-column>
+    </wj-flex-grid>
+
+    <p>
+        Click the button below to show a dialog for picking which columns should be
+        displayed on the grid and in what order:
+    </p>
+
+    <button class="btn btn-primary" (click)="pickColumns()">
+        Pick Columns
+    </button>
+
+    <!-- dialog used to pick and re-order grid columns -->
+    <wj-popup #dlgColumns>
+        <div class="wj-dialog wj-dialog-columns">
+            <div class="wj-dialog-header">
+                Edit Columns
+            </div>
+            <div class="wj-dialog-body">
+                <div class="text-info">
+                    Drag the columns you want to display to the list on the right.
+                    Drag the ones you don't want to the list on the left.<br />
+                    Drag within the list on the right to re-order the columns.<br />
+                    Click the "Apply" button to apply the changes to the grid.
+                </div>
+                <wj-column-picker #picker [grid]="flex"></wj-column-picker>
+            </div>
+            <div class="wj-dialog-footer">
+                <button class="btn wj-hide-apply">Apply</button>
+                <button class="btn wj-hide">Cancel</button>
+            </div>
+        </div>
+    </wj-popup>
+</div>

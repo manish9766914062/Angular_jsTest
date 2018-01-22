@@ -1,0 +1,90 @@
+﻿<p class="text-info">
+    <img src="resources/products/{{pdtSvc.products.currentItem.sku}}.jpg" alt="{{pdtSvc.products.currentItem.name}}"/>
+    {{pdtSvc.products.currentItem.name}}: {{pdtSvc.products.currentItem.description}}<br />
+</p>
+<div class="row">
+    <div class="col-md-8">
+
+        <!-- product info -->
+        <table class="table table-bordered">
+
+            <!-- cart summary at the top -->
+            <tr class="well">
+                <td class="text-right" colspan="2">
+                    <i class="glyphicon glyphicon-shopping-cart"></i>
+                    <a routerLink="/cart" title="go to shopping cart">
+                        <b>{{pdtSvc.getTotalCount()}}</b> items, <b>{{pdtSvc.getTotalPrice() | currency:'USD':true}}</b>
+                    </a>
+                </td>
+            </tr>
+
+            <!-- product calories -->
+            <tr>
+                <td class="text-right"><b>Calories</b></td>
+                <td class="text-left">
+                    <wj-radial-gauge 
+                        style="width:120px;height:120px;padding:4px"
+                        [min]="0" 
+                        [max]="150" 
+                        [value]="pdtSvc.products.currentItem.cal" 
+                        [startAngle]="-45"
+                        [sweepAngle]="270"
+                        [showText]="'Value'">
+                        <wj-range wjProperty="pointer" [thickness]="0.2"></wj-range>
+                        <wj-range [min]="0" [max]="50" color="rgba(100,255,100,.1)"></wj-range>
+                        <wj-range [min]="50" [max]="100" color="rgba(255,255,100,.1)"></wj-range>
+                        <wj-range [min]="100" [max]="150" color="rgba(255,100,100,.1)"></wj-range>
+                    </wj-radial-gauge>
+                </td>
+            </tr>
+
+            <!-- product nutrients -->{{getNutrientsKeys()}}
+            <tr *ngFor="let key of getNutrientsKeys()">
+                <td class="text-right">
+                    <b>{{key}}</b>
+                </td>
+                <td>
+                    <b>{{getDvaCaption(pdtSvc.products.currentItem.nutrients[key])}}</b>:
+                    {{getDvaRange(pdtSvc.products.currentItem.nutrients[key])}} of the recommended daily value.
+                    <br />
+                     <wj-linear-gauge 
+                        style="height:30px"
+                        [value]="pdtSvc.products.currentItem.nutrients[key]"
+                        [thickness]=".5"
+                        [min]="0" 
+                        [max]="4">
+                        <wj-range wjProperty="pointer" [thickness]="0.2"></wj-range>
+                        <wj-range [min]="0" [max]="1.33" color="rgba(100,255,100,.1)"></wj-range>
+                        <wj-range [min]="1.33" [max]="2.66" color="rgba(255,255,100,.1)"></wj-range>
+                        <wj-range [min]="2.66" [max]="4" color="rgba(255,100,100,.1)"></wj-range>
+                    </wj-linear-gauge>
+                </td>
+            </tr>
+
+            <!-- cart summary at the bottom -->
+            <tr class="well">
+                <td class="text-right" colspan="2">
+                    <i class="glyphicon glyphicon-shopping-cart"></i>
+                    <a routerLink="/cart" title="go to shopping cart">
+                        <b>{{pdtSvc.getTotalCount()}}</b> items, <b>{{pdtSvc.getTotalPrice() | currency:'USD':true}}</b>
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-4">
+        <button class="btn btn-block btn-primary" 
+            (click)="pdtSvc.addCartItem(pdtSvc.products.currentItem, 1)">
+            <i class="glyphicon glyphicon-shopping-cart"></i> add to cart
+        </button>
+        <button class="btn btn-block btn-danger"
+            (click)="pdtSvc.clearCartItem(pdtSvc.products.currentItem.sku)"
+            [disabled]="pdtSvc.getTotalCount(pdtSvc.products.currentItem.sku) < 1">
+            <i class="glyphicon glyphicon-trash"></i> remove from cart
+        </button>
+        <button class="btn btn-block" 
+            (click)="backToStore()">
+            <i class="glyphicon glyphicon-chevron-left"></i> back to store
+        </button>
+    </div>
+</div>
